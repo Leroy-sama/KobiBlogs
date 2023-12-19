@@ -1,3 +1,7 @@
 <template>
-    <h1>LoginPage</h1>
+    <RegisterForm />
 </template>
+
+<script setup>
+    import RegisterForm from "./RegisterForm.vue";
+</script>
