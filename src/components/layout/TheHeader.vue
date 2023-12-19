@@ -52,7 +52,7 @@
                     </div>
                     <div class="options">
                         <div class="option">
-                            <RouterLink class="option" to="#">
+                            <RouterLink class="option" to="/profile">
                                 <Icon
                                     icon="mdi:user-outline"
                                     color="white"
@@ -63,7 +63,7 @@
                             </RouterLink>
                         </div>
                         <div class="option">
-                            <RouterLink class="option" to="#">
+                            <RouterLink class="option" to="/admin">
                                 <Icon
                                     icon="ri:admin-line"
                                     color="white"

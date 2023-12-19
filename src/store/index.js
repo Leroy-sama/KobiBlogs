@@ -1,6 +1,6 @@
 import { createStore } from "vuex";
 import { getAuth } from "firebase/auth";
-import { getDoc, doc, getFirestore } from "firebase/firestore";
+import { getDoc, doc, getFirestore, updateDoc } from "firebase/firestore";
 import { firebaseApp } from "@/firebase/firebaseInit";
 
 const store = createStore({
@@ -36,6 +36,15 @@ const store = createStore({
                 state.profileFirstName.match(/(\b\S)?/g).join("") +
                 state.profileLastName.match(/(\b\S)?/g).join("");
         },
+        changeFirstName(state, payload) {
+            state.profileFirstName = payload;
+        },
+        changeLastName(state, payload) {
+            state.profileLastName = payload;
+        },
+        changeUsername(state, payload) {
+            state.profileUsername = payload;
+        },
     },
     actions: {
         async getCurrentUser({ commit }) {
@@ -46,6 +55,16 @@ const store = createStore({
             commit("setProfileInfo", userDocSnapshot);
             commit("setProfileInitials");
             console.log(userDocSnapshot);
+        },
+        async updatedUserSettings({ commit, state }) {
+            const db = getFirestore(firebaseApp);
+            const userDocRef = doc(db, "users", state.profileId);
+            await updateDoc(userDocRef, {
+                firstName: state.profileFirstName,
+                lastName: state.profileLastName,
+                username: state.profileUsername,
+            });
+            commit("setProfileInitials");
         },
     },
 });

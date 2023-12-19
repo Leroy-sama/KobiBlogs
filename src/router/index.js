@@ -7,6 +7,8 @@ import LoginPage from "@/components/pages/LoginPage.vue";
 import LoginForm from "@/components/pages/LoginForm.vue";
 import RegisterForm from "@/components/pages/RegisterForm.vue";
 import ForgotPassword from "@/components/pages/ForgotPassword.vue";
+import UserProfile from "@/components/user/UserProfile.vue";
+import Admin from "@/components/user/Admin.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -42,6 +44,14 @@ const router = createRouter({
         {
             path: "/forgot",
             component: ForgotPassword,
+        },
+        {
+            path: "/profile",
+            component: UserProfile,
+        },
+        {
+            path: "/admin",
+            component: Admin,
         },
     ],
 });
