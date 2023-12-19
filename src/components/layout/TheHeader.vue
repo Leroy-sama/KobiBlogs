@@ -26,6 +26,59 @@
                     >
                 </li>
             </ul>
+            <div class="profile">
+                <span>{{ store.state.profileInitials }}</span>
+                <div class="profle-menu">
+                    <div class="info">
+                        <p class="initials">
+                            {{ store.state.profileInitials }}
+                        </p>
+                        <div class="right">
+                            <p>
+                                {{ store.state.profileFirstName }}
+                                {{ store.state.profileLastName }}
+                            </p>
+                            <p>{{ store.state.profileUsername }}</p>
+                            <p>{{ store.state.profileEmail }}</p>
+                        </div>
+                    </div>
+                    <div class="options">
+                        <div class="option">
+                            <RouterLink class="option" to="#">
+                                <Icon
+                                    icon="mdi:user-outline"
+                                    color="white"
+                                    width="30"
+                                    class="icon"
+                                />
+                                <p>Profile</p>
+                            </RouterLink>
+                        </div>
+                        <div class="option">
+                            <RouterLink class="option" to="#">
+                                <Icon
+                                    icon="ri:admin-line"
+                                    color="white"
+                                    width="30"
+                                    class="icon"
+                                />
+                                <p>Admin</p>
+                            </RouterLink>
+                        </div>
+                        <div class="option">
+                            <RouterLink class="option" to="#">
+                                <Icon
+                                    icon="material-symbols:logout"
+                                    color="white"
+                                    width="30"
+                                    class="icon"
+                                />
+                                <p>Logout</p>
+                            </RouterLink>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div
                 class="burger"
                 @click="toggleNavMenu"
@@ -42,6 +95,10 @@
 <script setup>
     import { RouterLink } from "vue-router";
     import { reactive } from "vue";
+    import { useStore } from "vuex";
+    import { Icon } from "@iconify/vue";
+
+    const store = useStore();
     const state = reactive({
         isActive: false,
     });
@@ -127,6 +184,89 @@
 
     .nav-links.active {
         transform: translateX(0%);
+    }
+
+    .profile {
+        position: relative;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        color: #fff;
+        background-color: #303030;
+    }
+
+    .profle-menu {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 250px;
+        background-color: #303030;
+        box-shadow: 0 4px 6px 1px rgba(0, 0, 0, 0.1),
+            0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    .info {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        border-bottom: 1px solid #fff;
+    }
+
+    .initials {
+        position: initial;
+        width: 40px;
+        height: 40px;
+        background-color: #fff;
+        color: #303030;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    }
+
+    .right {
+        flex: 1;
+        margin-left: 24px;
+    }
+
+    .right p:nth-child(1) {
+        font-size: 14px;
+    }
+
+    .right p:nth-child(2),
+    .right p:nth-child(3) {
+        font-size: 12px;
+    }
+
+    .options {
+        padding: 15px;
+    }
+
+    .option {
+        text-decoration: none;
+        color: #fff;
+        display: flex;
+
+        align-items: center;
+        margin-bottom: 12px;
+    }
+
+    .option .icon {
+        width: 18px;
+        height: auto;
+    }
+
+    .option p {
+        font-size: 14px;
+        margin-left: 12px;
+    }
+
+    .option:last-child {
+        margin-bottom: 0px;
     }
 
     @media (min-width: 35em) {

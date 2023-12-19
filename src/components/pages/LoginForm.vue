@@ -57,6 +57,9 @@
         isValid: true,
     });
 
+    const error = ref(null);
+    const errorMsg = ref("");
+
     const formIsValid = ref(true);
 
     const clearValidity = (input) => {
@@ -100,8 +103,8 @@
             try {
                 const loginUser = await signInWithEmailAndPassword(
                     firebaseAuth,
-                    email2.val,
-                    password2.val
+                    email.val,
+                    password.val
                 );
                 router.push("/home");
                 console.log(loginUser.user.uid);
