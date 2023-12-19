@@ -16,7 +16,8 @@
             <div class="useful-links">
                 <RouterLink to="/">Home</RouterLink>
                 <RouterLink to="/blogs">Blogs</RouterLink>
-                <RouterLink to="/login">Login/Register</RouterLink>
+                <RouterLink to="/create-blog">Create Post</RouterLink>
+                <RouterLink v-if="!user" to="/login">Login/Register</RouterLink>
             </div>
             <div class="copyright">
                 <p class="cr">copyright 2023. All Rights Reserved</p>
@@ -27,6 +28,14 @@
 
 <script setup>
     import { Icon } from "@iconify/vue";
+    import { computed } from "vue";
+    import { useStore } from "vuex";
+
+    const store = useStore();
+
+    const user = computed(() => {
+        return store.state.user;
+    });
 </script>
 
 <style scoped>

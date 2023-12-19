@@ -21,14 +21,22 @@
                     >
                 </li>
                 <li>
-                    <RouterLink to="/loginpage" @click="closeNavMenu"
+                    <RouterLink
+                        v-if="!user"
+                        to="/loginpage"
+                        @click="closeNavMenu"
                         >Login/Register</RouterLink
                     >
                 </li>
             </ul>
-            <div class="profile">
+            <div
+                v-if="user"
+                @click="toggleProfileMenu"
+                class="profile"
+                ref="profile"
+            >
                 <span>{{ store.state.profileInitials }}</span>
-                <div class="profle-menu">
+                <div v-show="profileMenu" class="profle-menu">
                     <div class="info">
                         <p class="initials">
                             {{ store.state.profileInitials }}
@@ -65,16 +73,14 @@
                                 <p>Admin</p>
                             </RouterLink>
                         </div>
-                        <div class="option">
-                            <RouterLink class="option" to="#">
-                                <Icon
-                                    icon="material-symbols:logout"
-                                    color="white"
-                                    width="30"
-                                    class="icon"
-                                />
-                                <p>Logout</p>
-                            </RouterLink>
+                        <div @click="logUserOut" class="option">
+                            <Icon
+                                icon="material-symbols:logout"
+                                color="white"
+                                width="30"
+                                class="icon"
+                            />
+                            <p>Logout</p>
                         </div>
                     </div>
                 </div>
@@ -94,14 +100,19 @@
 
 <script setup>
     import { RouterLink } from "vue-router";
-    import { reactive } from "vue";
+    import { reactive, ref, computed } from "vue";
     import { useStore } from "vuex";
     import { Icon } from "@iconify/vue";
+    import { getAuth, signOut } from "firebase/auth";
+    import { firebaseApp } from "@/firebase/firebaseInit";
 
     const store = useStore();
     const state = reactive({
         isActive: false,
     });
+
+    const profileMenu = ref(null);
+    const profile = ref(null);
 
     const toggleNavMenu = () => {
         state.isActive = !state.isActive;
@@ -110,6 +121,22 @@
     const closeNavMenu = () => {
         state.isActive = false;
     };
+
+    const toggleProfileMenu = (e) => {
+        if (e.target === profile.value) {
+            profileMenu.value = !profileMenu.value;
+        }
+    };
+
+    const logUserOut = () => {
+        const auth = getAuth(firebaseApp);
+        signOut(auth);
+        window.location.reload();
+    };
+
+    const user = computed(() => {
+        return store.state.user;
+    });
 </script>
 
 <style scoped>
@@ -197,6 +224,10 @@
         border-radius: 50%;
         color: #fff;
         background-color: #303030;
+    }
+
+    .profile span {
+        pointer-events: none;
     }
 
     .profle-menu {

@@ -1,7 +1,7 @@
 <template>
     <section class="home">
         <div class="home__wrapper">
-            <div class="first__wrapper">
+            <div v-if="!user" class="first__wrapper">
                 <div class="home__text">
                     <h1 class="home__heading">Welcome</h1>
                     <p class="home__desc">
@@ -45,7 +45,7 @@
                         <a href="#">View Post</a>
                     </div>
                 </div>
-                <div class="moreblogs">
+                <div v-if="!user" class="moreblogs">
                     <p class="more__text">
                         Never miss a moment. Access all posts by registering for
                         your free account today!
@@ -56,6 +56,17 @@
         </div>
     </section>
 </template>
+
+<script setup>
+    import { useStore } from "vuex";
+    import { computed } from "vue";
+
+    const store = useStore();
+
+    const user = computed(() => {
+        return store.state.user;
+    });
+</script>
 
 <style scoped>
     img {
