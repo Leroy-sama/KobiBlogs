@@ -2,6 +2,33 @@
     import { RouterView } from "vue-router";
     import TheHeader from "@/components/layout/TheHeader.vue";
     import TheFooter from "@/components/layout/TheFooter.vue";
+
+    import { provide, ref } from "vue";
+
+    const blogCards = ref([
+        {
+            blogTitle: "Machine Learning indepth",
+            blogCoverPhoto: "machine-learning",
+            blogDate: "November 1, 2023",
+        },
+        {
+            blogTitle: "Choosing the best coding time",
+            blogCoverPhoto: "coding-time",
+            blogDate: "November 1, 2023",
+        },
+        {
+            blogTitle: "Nodejs vs django",
+            blogCoverPhoto: "node-django",
+            blogDate: "November 1, 2023",
+        },
+        {
+            blogTitle: "What is wordpress",
+            blogCoverPhoto: "wordpress",
+            blogDate: "November 1, 2023",
+        },
+    ]);
+
+    provide("blogCards", blogCards);
 </script>
 
 <template>
