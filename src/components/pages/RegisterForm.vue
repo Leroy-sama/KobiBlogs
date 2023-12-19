@@ -6,7 +6,7 @@
                 <RouterLink to="/login">Login</RouterLink>
             </p>
             <h1 class="form__title">Create your KobiBlogs Account</h1>
-            <form @submit.prevent="submitForm">
+            <form @submit.prevent="register">
                 <div
                     class="form__control"
                     :class="{ invalid: !firstName.isValid }"
@@ -92,6 +92,12 @@
 
 <script setup>
     import { reactive, ref } from "vue";
+    import { getFirestore, doc, setDoc } from "firebase/firestore";
+    import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+    import { firebaseApp } from "@/firebase/firebaseInit.js";
+    import { useRouter } from "vue-router";
+
+    const router = useRouter();
 
     const firstName = reactive({
         val: "",
@@ -143,22 +149,51 @@
         }
     };
 
-    const submitForm = () => {
-        validateForm();
+    // const submitForm = () => {
+    //     validateForm();
 
+    //     if (!formIsValid) {
+    //         return;
+    //     }
+
+    //     const userData = {
+    //         firstName: firstName.val,
+    //         lastName: lastName,
+    //         email: email,
+    //         username: username,
+    //         password: password,
+    //     };
+
+    //     console.log(userData);
+    // };
+
+    const register = async () => {
+        validateForm();
         if (!formIsValid) {
             return;
         }
 
-        const userData = {
-            firstName: firstName.val,
-            lastName: lastName,
-            email: email,
-            username: username,
-            password: password,
-        };
-
-        console.log(userData);
+        if (formIsValid) {
+            const firebaseAuth = getAuth(firebaseApp);
+            const createUser = await createUserWithEmailAndPassword(
+                firebaseAuth,
+                email.val,
+                password.val
+            );
+            console.log(createUser.user);
+            const db = getFirestore(firebaseApp);
+            const userUid = createUser.user.uid;
+            const userData = {
+                firstName: firstName.val,
+                lastName: lastName.val,
+                username: username.val,
+                email: email.val,
+            };
+            const userDocRef = doc(db, "users", userUid);
+            await setDoc(userDocRef, userData);
+            console.log("user data stored in Firestore:", userData);
+            router.push("/home");
+        }
     };
 </script>
 

@@ -2,8 +2,14 @@
     import { RouterView } from "vue-router";
     import TheHeader from "@/components/layout/TheHeader.vue";
     import TheFooter from "@/components/layout/TheFooter.vue";
+    import { getAuth, onAuthStateChanged } from "firebase/auth";
+    import { firebaseApp } from "@/firebase/firebaseInit.js";
 
-    import { provide, ref } from "vue";
+    import { provide, ref, onMounted } from "vue";
+
+    import { useStore } from "vuex";
+
+    const store = useStore();
 
     const blogCards = ref([
         {
@@ -29,6 +35,17 @@
     ]);
 
     provide("blogCards", blogCards);
+
+    onMounted(() => {
+        const auth = getAuth(firebaseApp);
+        onAuthStateChanged(auth, (user) => {
+            store.commit("updateUser", user);
+            if (user) {
+                store.dispatch("getCurrentUser");
+                console.log(store.state.profileEmail);
+            }
+        });
+    });
 </script>
 
 <template>

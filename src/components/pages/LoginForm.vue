@@ -6,7 +6,7 @@
                 <RouterLink to="/register">Register</RouterLink>
             </p>
             <h1 class="form__title">Sign In to KobiBlogs</h1>
-            <form @submit.prevent="submitForm">
+            <form @submit.prevent="signIn">
                 <div class="form__control">
                     <input
                         type="email"
@@ -42,6 +42,11 @@
 
 <script setup>
     import { reactive, ref } from "vue";
+    import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
+    import { firebaseApp } from "@/firebase/firebaseInit.js";
+    import { useRouter } from "vue-router";
+
+    const router = useRouter();
 
     const email = reactive({
         val: "",
@@ -70,18 +75,41 @@
         }
     };
 
-    const submitForm = () => {
-        validateForm();
+    // const submitForm = () => {
+    //     validateForm();
 
+    //     if (!formIsValid) {
+    //         return;
+    //     }
+    //     const formData = {
+    //         email: email,
+    //         password: password,
+    //     };
+
+    //     console.log(formData);
+    // };
+
+    const signIn = async () => {
+        validateForm();
         if (!formIsValid) {
             return;
         }
-        const formData = {
-            email: email,
-            password: password,
-        };
 
-        console.log(formData);
+        if (formIsValid) {
+            const firebaseAuth = getAuth(firebaseApp);
+            try {
+                const loginUser = await signInWithEmailAndPassword(
+                    firebaseAuth,
+                    email2.val,
+                    password2.val
+                );
+                router.push("/home");
+                console.log(loginUser.user.uid);
+            } catch (err) {
+                error.value = true;
+                errorMsg.value = err.message;
+            }
+        }
     };
 </script>
 
