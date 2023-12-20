@@ -2,7 +2,7 @@
     <footer>
         <div class="footer__wrapper">
             <div class="footer__socials">
-                <h3 class="socials__heading">FireBlogs</h3>
+                <h3 class="socials__heading">KobiBlogs</h3>
                 <div class="socials">
                     <Icon icon="pajamas:twitter" color="white" width="30" />
                     <Icon
@@ -16,7 +16,9 @@
             <div class="useful-links">
                 <RouterLink to="/">Home</RouterLink>
                 <RouterLink to="/blogs">Blogs</RouterLink>
-                <RouterLink to="/create-blog">Create Post</RouterLink>
+                <RouterLink v-if="user" to="/create-blog"
+                    >Create Post</RouterLink
+                >
                 <RouterLink v-if="!user" to="/login">Login/Register</RouterLink>
             </div>
             <div class="copyright">
@@ -73,6 +75,10 @@
     .useful-links a {
         color: white;
         text-decoration: none;
+    }
+
+    .useful-links a:hover {
+        color: var(--color1);
     }
 
     .cr {

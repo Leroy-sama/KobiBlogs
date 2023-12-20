@@ -7,6 +7,11 @@ const store = createStore({
     state() {
         return {
             sampleBlogCards: [],
+            blogHTML: "Write your blog title here...",
+            blogTitle: "",
+            blogPhotoName: "",
+            blogPhotoFileURL: null,
+            blogPhotoReview: null,
             editPost: null,
             user: null,
             profileEmail: null,
@@ -18,6 +23,22 @@ const store = createStore({
         };
     },
     mutations: {
+        newBlogPost(state, payload) {
+            state.blogHTML = payload;
+            console.log(state.blogHTML);
+        },
+        updatetBlogTitle(state, payload) {
+            state.blogTitle = payload;
+        },
+        fileNameChange(state, payload) {
+            state.blogPhotoName = payload;
+        },
+        createFileURL(state, payload) {
+            state.blogPhotoFileURL = payload;
+        },
+        openPhotoPreview(state) {
+            state.blogPhotoPreview = !state.blogPhotoPreview;
+        },
         toggleEditPost(state, payload) {
             state.editPost = payload;
         },

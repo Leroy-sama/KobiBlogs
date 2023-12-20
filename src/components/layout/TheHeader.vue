@@ -16,7 +16,10 @@
                     >
                 </li>
                 <li>
-                    <RouterLink to="/create-blog" @click="closeNavMenu"
+                    <RouterLink
+                        v-if="user"
+                        to="/create-blog"
+                        @click="closeNavMenu"
                         >Create Post</RouterLink
                     >
                 </li>

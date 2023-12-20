@@ -20,7 +20,7 @@
         <div class="info">
             <h4>{{ blogTitle }}</h4>
             <h6>Posted on: {{ blogDate }}</h6>
-            <RouterLink to="#">View Post</RouterLink>
+            <RouterLink class="post__view" to="#">View Post</RouterLink>
         </div>
     </div>
 </template>
@@ -48,6 +48,8 @@
 
     .info {
         padding: 1em;
+        display: grid;
+        gap: 1em;
     }
 
     .icons {

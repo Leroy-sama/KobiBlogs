@@ -1,5 +1,6 @@
 <template>
     <div class="blogs">
+        <h2 >Blogs Page</h2>
         <BlogItem
             v-for="blog in blogCards"
             :key="blog.index"

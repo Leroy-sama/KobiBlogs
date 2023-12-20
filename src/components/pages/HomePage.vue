@@ -3,7 +3,10 @@
         <div class="home__wrapper">
             <div v-if="!user" class="first__wrapper">
                 <div class="home__text">
-                    <h1 class="home__heading">Welcome</h1>
+                    <div>
+                        <h1 class="home__heading">Welcome</h1>
+                    </div>
+
                     <p class="home__desc">
                         Weekly blog articles with all things tech including AI,
                         Cloud computing, Web Development and more. Register
@@ -23,9 +26,13 @@
                             The Future of Cloud Computing
                         </h2>
                         <p class="text__desc">
-                            In this post we take a look at...
+                            In this post we take a look at Cloud Computing and
+                            the recent changes that have been introduced to the
+                            field.
                         </p>
-                        <a href="#">View Post</a>
+                        <div>
+                            <a href="#" class="post__view">View Post</a>
+                        </div>
                     </div>
                     <div class="sample__img">
                         <img src="@/assets/cloud.jpg" alt="cloud computing" />
@@ -40,9 +47,12 @@
                             Are you still using HTML and CSS?
                         </h2>
                         <p class="text__desc">
-                            In this post we take a look at...
+                            In this post we take a look at the fundamental
+                            languages, html and css.
                         </p>
-                        <a href="#">View Post</a>
+                        <div>
+                            <a href="#" class="post__view">View Post</a>
+                        </div>
                     </div>
                 </div>
                 <div v-if="!user" class="moreblogs">
@@ -51,6 +61,12 @@
                         your free account today!
                     </p>
                     <a href="#" class="cta">Register</a>
+                </div>
+                <div v-if="user" class="class">
+                    <p class="more__blogs">
+                        Explore more of our blogs in our blogs page .
+                    </p>
+                    <a href="#" class="cta">Explore More</a>
                 </div>
             </div>
         </div>
@@ -69,6 +85,7 @@
 </script>
 
 <style scoped>
+    @import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
     img {
         width: 100%;
     }
@@ -82,6 +99,22 @@
     }
 
     .home__heading {
+        color: var(--color1);
+        font-family: "Playfair Display", serif;
+        font-size: 3rem;
+        text-align: left;
+    }
+
+    .home__heading::after {
+        content: "";
+        width: 90%;
+        height: 2px;
+        background: var(--color1);
+        display: block;
+        margin: auto;
+    }
+
+    .text__heading {
         color: var(--color1);
     }
 
@@ -120,6 +153,15 @@
 
     .samples__title {
         text-align: center;
+        padding-bottom: 2em;
+        color: var(--color2);
+    }
+
+    .sample__text {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 0.5em;
     }
 
     .sample2 {
@@ -127,10 +169,26 @@
         flex-direction: column-reverse;
     }
 
-    .more__text {
+    .section__wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 2em 0;
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .more__text,
+    .more__blogs {
         font-size: 1.5rem;
         font-weight: 700;
         padding: 1.5em 0;
+        color: var(--color2);
+    }
+
+    .more__text .cta:hover,
+    .more__blogs .cta:hover {
+        color: var(--color2);
+        background-color: #fff;
     }
 
     .cta {
@@ -141,8 +199,17 @@
         .sample1,
         .sample2,
         .first__wrapper {
-            display: flex;
-            flex-direction: row;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .home__wrapper {
+            max-width: 1300px;
+            margin: auto;
+        }
+
+        .sample__text:last-child {
+            padding-left: 2em;
         }
     }
 </style>
