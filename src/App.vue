@@ -13,23 +13,39 @@
 
     const blogCards = ref([
         {
+            blogTitle: "The Future of Cloud Computing",
+            blogCoverPhoto:
+                "https://i.pinimg.com/564x/51/75/f2/5175f2a55bc8d44fc4c1b132477ac3ff.jpg",
+            blogDate: "November 1, 2023",
+        },
+        {
+            blogTitle: "Are you still using HTML and CSS",
+            blogCoverPhoto:
+                "https://i.pinimg.com/564x/48/52/6a/48526a98493907f2dc33893a718ba1df.jpg",
+            blogDate: "November 1, 2023",
+        },
+        {
             blogTitle: "Machine Learning indepth",
-            blogCoverPhoto: "machine-learning",
+            blogCoverPhoto:
+                "https://i.pinimg.com/564x/34/16/cc/3416cc88543f5e6601b7854878ce0899.jpg",
             blogDate: "November 1, 2023",
         },
         {
             blogTitle: "Choosing the best coding time",
-            blogCoverPhoto: "coding-time",
+            blogCoverPhoto:
+                "https://i.pinimg.com/564x/33/f8/5a/33f85ae4b62c8bbaf20283852fa74655.jpg",
             blogDate: "November 1, 2023",
         },
         {
-            blogTitle: "Nodejs vs django",
-            blogCoverPhoto: "node-django",
+            blogTitle: "Nodejs vs django for backend",
+            blogCoverPhoto:
+                "https://i.pinimg.com/564x/03/ce/f0/03cef0ed8e57fae5083c6b498188ce65.jpg",
             blogDate: "November 1, 2023",
         },
         {
-            blogTitle: "What is wordpress",
-            blogCoverPhoto: "wordpress",
+            blogTitle: "A look at wordpress and uses",
+            blogCoverPhoto:
+                "https://i.pinimg.com/564x/3b/1d/7e/3b1d7e4ae14bd472645a004040bca8c5.jpg",
             blogDate: "November 1, 2023",
         },
     ]);

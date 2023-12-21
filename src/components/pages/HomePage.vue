@@ -40,7 +40,10 @@
                 </div>
                 <div class="sample2">
                     <div class="sample__img">
-                        <img src="@/assets/web-dev.jpg" alt="web dev" />
+                        <img
+                            src="https://i.pinimg.com/564x/48/52/6a/48526a98493907f2dc33893a718ba1df.jpg"
+                            alt="web dev"
+                        />
                     </div>
                     <div class="sample__text">
                         <h2 class="text__heading">
@@ -60,13 +63,17 @@
                         Never miss a moment. Access all posts by registering for
                         your free account today!
                     </p>
-                    <a href="#" class="cta">Register</a>
+                    <RouterLink to="/loginpage" class="cta"
+                        >Register</RouterLink
+                    >
                 </div>
                 <div v-if="user" class="class">
                     <p class="more__blogs">
                         Explore more of our blogs in our blogs page .
                     </p>
-                    <a href="#" class="cta">Explore More</a>
+                    <RouterLink to="/blogs" class="cta"
+                        >Explore More</RouterLink
+                    >
                 </div>
             </div>
         </div>
@@ -151,6 +158,11 @@
         transform-origin: left;
     }
 
+    .sample1,
+    .sample2 {
+        padding: 1em;
+    }
+
     .samples__title {
         text-align: center;
         padding-bottom: 2em;
@@ -162,6 +174,7 @@
         justify-content: center;
         flex-direction: column;
         gap: 0.5em;
+        padding: 1em 0;
     }
 
     .sample2 {
@@ -189,6 +202,11 @@
     .more__blogs .cta:hover {
         color: var(--color2);
         background-color: #fff;
+    }
+
+    .moreblogs,
+    .class {
+        padding: 1em;
     }
 
     .cta {

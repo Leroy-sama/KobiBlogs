@@ -1,6 +1,8 @@
 <template>
+    <div>
+        <h2 class="blog__heading">Blogs Page</h2>
+    </div>
     <div class="blogs">
-        <h2 >Blogs Page</h2>
         <BlogItem
             v-for="blog in blogCards"
             :key="blog.index"
@@ -26,5 +28,19 @@
         gap: 2em;
         background-color: whitesmoke;
         padding: 2em;
+    }
+
+    .blog__heading {
+        text-align: center;
+        color: var(--color2);
+    }
+
+    .blog__heading::after {
+        content: "";
+        width: 20%;
+        height: 2px;
+        background: var(--color2);
+        display: block;
+        margin: auto;
     }
 </style>

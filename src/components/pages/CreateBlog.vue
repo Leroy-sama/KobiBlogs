@@ -1,5 +1,5 @@
 <template>
-    <div v-if="user" class="create-post">
+    <div class="create-post">
         <CoverPreview
             v-show="store.state.blogPhotoPreview"
             placeholder="Enter Blog Title"
@@ -39,14 +39,14 @@
             <div class="editor">
                 <QuillEditor
                     theme="snow"
-                    toolbar="minimal"
+                    toolbar="full"
                     v-model="blogHTML"
                     @image-added="imageHandler"
                 />
             </div>
             <div class="blog-actions">
-                <button>Publish Blog</button>
-                <RouterLink class="router-button" to="#"
+                <button @click="uploadBlog">Publish Blog</button>
+                <RouterLink class="router-button" to="/blog-preview"
                     >Post Preview</RouterLink
                 >
             </div>
@@ -59,6 +59,8 @@
     import { ref, computed } from "vue";
     import CoverPreview from "@/ui/CoverPreview.vue";
     import { QuillEditor } from "@vueup/vue-quill";
+    import { getStorage, getDownloadURL } from "firebase/storage";
+    import { getFirestore } from "firebase/firestore";
     import { firebaseApp } from "@/firebase/firebaseInit";
 
     const store = useStore();
@@ -77,7 +79,7 @@
 
     const blogTitle = computed({
         get() {
-            return store.state.blogTitle;
+            return store.state.blogTitle.value;
         },
         set(payload) {
             store.commit("updateBlogTitle", payload);
@@ -85,7 +87,7 @@
     });
     const blogHTML = computed({
         get() {
-            return store.state.blogHTML;
+            return store.state.blogHTML.value;
         },
         set(payload) {
             store.commit("newBlogPost", payload);
@@ -103,27 +105,56 @@
         store.commit("openPhotoPreview");
     };
 
-    const fileValue = file.value;
+    const imageHandler = async (
+        file,
+        QuillEditor,
+        cursorLocation,
+        resetUploader
+    ) => {
+        const storage = getStorage(firebaseApp);
 
-    const imageHandler = async (file, cursorLocation, resetUploader) => {
-        try {
-            const storageRef = firebase.storage().ref();
-            const docRef = storageRef.child(
-                `documents/blogPostPhotos/${file.name}`
-            );
+        const imageRef = ref(
+            storage,
+            `documents/blogPhotos/${file.value.name}`
+        );
 
-            const snapshot = await docRef.put(file);
+        const uploadTask = put(imageRef, file.value);
 
-            // Continue with the download URL retrieval and Quill editor update
-            const downloadURL = await docRef.getDownloadURL();
-            QuillEditor.insertEmbed(cursorLocation, "image", downloadURL);
-        } catch (error) {
-            // Handle the error, log it, or show a user-friendly message
-            console.error("Error uploading file:", error);
-        } finally {
-            // Reset the uploader if needed
-            resetUploader();
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+                console.log(snapshot);
+            },
+            (error) => {
+                console.log(error);
+            },
+            async () => {
+                const downloadURL = await imageRef.getDownloadURL();
+                QuillEditor.insertEmbed(cursorLocation, "image", downloadURL);
+                resetUploader();
+                console.log(cursorLocation);
+            }
+        );
+    };
+
+    const uploadBlog = () => {
+        if (blogTitle.length !== 0 && blogHTML.length !== 0) {
+            if (file.value) {
+                //
+                return;
+            }
+            error.value = true;
+            errorMsg.value = "Please ensure you uploaded a cover photo";
+            setTimeout(() => {
+                error.value = false;
+            }, 5000);
         }
+        error.value = true;
+        errorMsg.value =
+            "Please ensure blogtitle and blog post has been filled";
+        setTimeout(() => {
+            error.value = false;
+        }, 5000);
     };
 </script>
 

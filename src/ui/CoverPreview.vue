@@ -1,7 +1,12 @@
 <template>
     <div class="modal" ref="modal">
         <div class="modal-content">
-            <p @click="closePreview" class="icon">Close</p>
+            <Icon
+                @click="closePreview"
+                icon="carbon:close-filled"
+                width="25"
+                class="icon"
+            />
             <img :src="blogCoverPhoto" alt="" />
         </div>
     </div>
@@ -10,6 +15,7 @@
 <script setup>
     import { computed } from "vue";
     import { useStore } from "vuex";
+    import { Icon } from "@iconify/vue";
 
     const store = useStore();
 

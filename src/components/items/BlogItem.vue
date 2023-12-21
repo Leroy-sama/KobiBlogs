@@ -13,14 +13,17 @@
                     icon="material-symbols:delete-outline"
                     color="hsl(223, 47%, 23%)"
                     class="delete"
+                    @click="logging"
                 />
             </div>
         </div>
-        <img src="@/assets/web-dev.jpg" :alt="blogTitle" />
+        <img :src="blogCoverPhoto" :alt="blogTitle" />
         <div class="info">
             <h4>{{ blogTitle }}</h4>
             <h6>Posted on: {{ blogDate }}</h6>
-            <RouterLink class="post__view" to="#">View Post</RouterLink>
+            <div>
+                <RouterLink class="post__view" to="#">View Post</RouterLink>
+            </div>
         </div>
     </div>
 </template>
@@ -29,6 +32,10 @@
     import { Icon } from "@iconify/vue";
 
     const props = defineProps(["blogTitle", "blogCoverPhoto", "blogDate"]);
+
+    const logging = () => {
+        console.log(props.blogCoverPhoto);
+    };
 </script>
 
 <style scoped>
@@ -47,7 +54,7 @@
     }
 
     .info {
-        padding: 1em;
+        padding: 1.5em;
         display: grid;
         gap: 1em;
     }
@@ -73,6 +80,14 @@
 
     .icon:hover {
         background: black;
+    }
+
+    .info h4 {
+        color: var(--color2);
+    }
+
+    .info a {
+        align-self: flex-end;
     }
 
     .edit,

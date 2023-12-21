@@ -9,6 +9,7 @@ import RegisterForm from "@/components/pages/RegisterForm.vue";
 import ForgotPassword from "@/components/pages/ForgotPassword.vue";
 import UserProfile from "@/components/user/UserProfile.vue";
 import Admin from "@/components/user/Admin.vue";
+import BlogPreview from "@/components/pages/BlogPreview.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -52,6 +53,10 @@ const router = createRouter({
         {
             path: "/admin",
             component: Admin,
+        },
+        {
+            path: "/blog-preview",
+            component: BlogPreview,
         },
     ],
 });
