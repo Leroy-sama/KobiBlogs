@@ -1,233 +1,221 @@
 <template>
-    <section class="home">
-        <div class="home__wrapper">
-            <div v-if="!user" class="first__wrapper">
-                <div class="home__text">
-                    <div>
-                        <h1 class="home__heading">Welcome</h1>
-                    </div>
+	<section class="home">
+		<div class="home__wrapper">
+			<div class="hero">
+				<div class="hero__text">
+					<h1 class="hero__head">Welcome</h1>
+					<p class="hero__desc">
+						Weekly blog articles with all things tech including AI,
+						Cloud computing, Web Development and more. Register
+						today so you don't miss a moment.
+					</p>
+				</div>
+			</div>
+			<div class="posts">
+				<div class="latest-post">
+					<img src="@/assets/latest_post.webp" alt="" />
+					<div class="latest-post__details">
+						<span class="tag">AI</span>
+						<h2 class="latest-post__title">
+							Innovative AI Applications in the Real World
+						</h2>
+						<p class="latest-post__smalldesc">
+							Discover how AI can help businesses improve their
+							customer experience and drive more sales.
+						</p>
+						<span class="date">Jul 4, 2024</span>
+					</div>
+				</div>
+				<div class="otherposts">
+					<div class="post">
+						<div class="post-img">
+							<span class="tag">Apple</span>
+							<img src="@/assets/watch_post.webp" alt="" />
+						</div>
 
-                    <p class="home__desc">
-                        Weekly blog articles with all things tech including AI,
-                        Cloud computing, Web Development and more. Register
-                        today so you don't miss a moment.
-                    </p>
-                    <a href="#" class="cta">Get started</a>
-                </div>
-                <div class="home__image">
-                    <img src="@/assets/cover-photo.jpg" alt="cover photo" />
-                </div>
-            </div>
-            <div class="samples__wrapper">
-                <h2 class="samples__title">Recent blogs</h2>
-                <div class="sample1">
-                    <div class="sample__text">
-                        <h2 class="text__heading">
-                            The Future of Cloud Computing
-                        </h2>
-                        <p class="text__desc">
-                            In this post we take a look at Cloud Computing and
-                            the recent changes that have been introduced to the
-                            field.
-                        </p>
-                        <div>
-                            <a href="#" class="post__view">View Post</a>
-                        </div>
-                    </div>
-                    <div class="sample__img">
-                        <img src="@/assets/cloud.jpg" alt="cloud computing" />
-                    </div>
-                </div>
-                <div class="sample2">
-                    <div class="sample__img">
-                        <img
-                            src="https://i.pinimg.com/564x/48/52/6a/48526a98493907f2dc33893a718ba1df.jpg"
-                            alt="web dev"
-                        />
-                    </div>
-                    <div class="sample__text">
-                        <h2 class="text__heading">
-                            Are you still using HTML and CSS?
-                        </h2>
-                        <p class="text__desc">
-                            In this post we take a look at the fundamental
-                            languages, html and css.
-                        </p>
-                        <div>
-                            <a href="#" class="post__view">View Post</a>
-                        </div>
-                    </div>
-                </div>
-                <div v-if="!user" class="moreblogs">
-                    <p class="more__text">
-                        Never miss a moment. Access all posts by registering for
-                        your free account today!
-                    </p>
-                    <RouterLink to="/loginpage" class="cta"
-                        >Register</RouterLink
-                    >
-                </div>
-                <div v-if="user" class="class">
-                    <p class="more__blogs">
-                        Explore more of our blogs in our blogs page .
-                    </p>
-                    <RouterLink to="/blogs" class="cta"
-                        >Explore More</RouterLink
-                    >
-                </div>
-            </div>
-        </div>
-    </section>
+						<div class="post__details">
+							<h2 class="post__head">New Apple watch Holder</h2>
+							<p class="post__desc">
+								Introducing the new Apple Watch Holder, a sleek
+								and stylish solution for those looking to
+								upgrade their fitness devices.
+							</p>
+							<span class="date">Jun 12, 2024</span>
+						</div>
+					</div>
+					<div class="post">
+						<div class="post-img">
+							<span class="tag">Web</span>
+							<img src="@/assets/web-dev.jpg" alt="" />
+						</div>
+
+						<div class="post__details">
+							<h2 class="post__head">
+								Nodejs vs django for backend
+							</h2>
+							<p class="post__desc">
+								Nodejs for backend is not available in the
+								backend version of the website and is not
+								available in the backend version of the
+							</p>
+							<span class="date">Jun 12, 2024</span>
+						</div>
+					</div>
+					<div class="post">
+						<div class="post-img">
+							<span class="tag">Setup</span>
+							<img src="@/assets/cable_post.webp" alt="" />
+						</div>
+						<div class="post__details">
+							<h2 class="post__head">
+								Cable management made easy
+							</h2>
+							<p class="post__desc">
+								A well connected workspace often means one
+								thing: lots of cables. Taking control of all the
+								cable.
+							</p>
+							<span class="date">Jun 12, 2024</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 </template>
 
 <script setup>
-    import { useStore } from "vuex";
-    import { computed } from "vue";
+	import { useStore } from "vuex";
+	import { computed } from "vue";
 
-    const store = useStore();
+	const store = useStore();
 
-    const user = computed(() => {
-        return store.state.user;
-    });
+	const user = computed(() => {
+		return store.state.user;
+	});
 </script>
 
-<style scoped>
-    @import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
-    img {
-        width: 100%;
-    }
+<style lang="css" scoped>
+	img {
+		width: 100%;
+	}
 
-    .first__wrapper {
-        display: flex;
-        flex-direction: column;
-        gap: 2em;
-        align-items: center;
-        height: 90vh;
-    }
+	.home__wrapper {
+		margin: 0 1.5rem;
+	}
 
-    .home__heading {
-        color: var(--color1);
-        font-family: "Playfair Display", serif;
-        font-size: 3rem;
-        text-align: left;
-    }
+	.hero {
+		padding: 1.5rem 0;
+	}
 
-    .home__heading::after {
-        content: "";
-        width: 90%;
-        height: 2px;
-        background: var(--color1);
-        display: block;
-        margin: auto;
-    }
+	.hero__head {
+		font-size: 2rem;
+		color: var(--color1);
+	}
 
-    .text__heading {
-        color: var(--color1);
-    }
+	.hero__desc {
+		padding: 1rem 0;
+	}
 
-    .home__desc {
-        padding: 1.5em 0;
-    }
+	.hero__head,
+	.hero__desc {
+		text-align: center;
+	}
 
-    .cta {
-        color: white;
-        text-decoration: none;
-        background-color: var(--color2);
-        margin: 2em 0;
-        padding: 0.5em 1em;
-        position: relative;
-        z-index: 1;
-        transition: transform 400ms ease-in;
-    }
+	/*******************************************/
 
-    .cta::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: hsla(223, 47%, 23%, 0.5);
-        z-index: -1;
-        transform: scaleX(0);
-        transform-origin: right;
-    }
+	/* POSTS */
 
-    .cta:hover::after {
-        transform: scaleX(1);
-        transform-origin: left;
-    }
+	.latest-post {
+		background-color: rgb(6, 2, 19);
+	}
 
-    .sample1,
-    .sample2 {
-        padding: 1em;
-    }
+	.latest-post__details {
+		padding: 1rem;
+		display: grid;
+		gap: 0.5rem;
+	}
 
-    .samples__title {
-        text-align: center;
-        padding-bottom: 2em;
-        color: var(--color2);
-    }
+	.latest-post__details .tag {
+		background-color: wheat;
+		padding: 0.5rem;
+	}
 
-    .sample__text {
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        gap: 0.5em;
-        padding: 1em 0;
-    }
+	.latest-post__title {
+		color: white;
+	}
 
-    .sample2 {
-        display: flex;
-        flex-direction: column-reverse;
-    }
+	.latest-post__smalldesc {
+		color: rgb(241, 241, 241);
+	}
 
-    .section__wrapper {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        padding: 2em 0;
-        max-width: 1200px;
-        margin: auto;
-    }
+	.latest-post__details .date {
+		color: rgb(238, 238, 238);
+		font-size: 0.8rem;
+	}
 
-    .more__text,
-    .more__blogs {
-        font-size: 1.5rem;
-        font-weight: 700;
-        padding: 1.5em 0;
-        color: var(--color2);
-    }
+	.otherposts {
+		margin: 1.5rem 0;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+	}
 
-    .more__text .cta:hover,
-    .more__blogs .cta:hover {
-        color: var(--color2);
-        background-color: #fff;
-    }
+	.post-img {
+		position: relative;
+	}
 
-    .moreblogs,
-    .class {
-        padding: 1em;
-    }
+	.post-img .tag {
+		background-color: wheat;
+		font-size: 0.7rem;
+		text-transform: uppercase;
+		font-weight: 700;
+		padding: 0.5rem;
+		position: absolute;
+		top: 1rem;
+		left: 1rem;
+		z-index: 111;
+	}
 
-    .cta {
-        margin-bottom: 1em;
-    }
+	.post-img img {
+		aspect-ratio: 1 / 1;
+		object-fit: cover;
+	}
 
-    @media (min-width: 35em) {
-        .sample1,
-        .sample2,
-        .first__wrapper {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-        }
+	.post__details {
+		padding: 1rem 0;
+		display: grid;
+		gap: 0.8rem;
+	}
 
-        .home__wrapper {
-            max-width: 1300px;
-            margin: auto;
-        }
+	.post__details .date {
+		color: rgb(49, 49, 49);
+	}
 
-        .sample__text:last-child {
-            padding-left: 2em;
-        }
-    }
+	@media (min-width: 700px) {
+	}
+
+	@media (min-width: 1000px) {
+		.home__wrapper {
+			max-width: 1200px;
+			margin: 0 auto;
+		}
+
+		.hero__head {
+			font-size: 2.5rem;
+		}
+
+		.latest-post {
+			display: flex;
+		}
+
+		.latest-post__details {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.latest-post__title {
+			font-size: 2.5rem;
+		}
+	}
 </style>
