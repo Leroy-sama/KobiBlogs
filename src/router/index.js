@@ -12,7 +12,7 @@ const routes = [
 	},
 	{
 		path: "/blogs",
-		component: () => import("@/components/pages/BlogsPage.vue"),
+		component: () => import("@/components/pages/BlogDetails.vue"),
 	},
 	{
 		path: "/create-blog",

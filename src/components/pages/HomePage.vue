@@ -13,7 +13,7 @@
 			</div>
 			<div class="posts">
 				<div class="latest-post">
-					<img src="@/assets/latest_post.webp" alt="" />
+					<img src="@/assets/img/latest_post.webp" alt="" />
 					<div class="latest-post__details">
 						<span class="tag">AI</span>
 						<h2 class="latest-post__title">
@@ -27,57 +27,15 @@
 					</div>
 				</div>
 				<div class="otherposts">
-					<div class="post">
-						<div class="post-img">
-							<span class="tag">Apple</span>
-							<img src="@/assets/watch_post.webp" alt="" />
-						</div>
-
-						<div class="post__details">
-							<h2 class="post__head">New Apple watch Holder</h2>
-							<p class="post__desc">
-								Introducing the new Apple Watch Holder, a sleek
-								and stylish solution for those looking to
-								upgrade their fitness devices.
-							</p>
-							<span class="date">Jun 12, 2024</span>
-						</div>
-					</div>
-					<div class="post">
-						<div class="post-img">
-							<span class="tag">Web</span>
-							<img src="@/assets/web-dev.jpg" alt="" />
-						</div>
-
-						<div class="post__details">
-							<h2 class="post__head">
-								Nodejs vs django for backend
-							</h2>
-							<p class="post__desc">
-								Nodejs for backend is not available in the
-								backend version of the website and is not
-								available in the backend version of the
-							</p>
-							<span class="date">Jun 12, 2024</span>
-						</div>
-					</div>
-					<div class="post">
-						<div class="post-img">
-							<span class="tag">Setup</span>
-							<img src="@/assets/cable_post.webp" alt="" />
-						</div>
-						<div class="post__details">
-							<h2 class="post__head">
-								Cable management made easy
-							</h2>
-							<p class="post__desc">
-								A well connected workspace often means one
-								thing: lots of cables. Taking control of all the
-								cable.
-							</p>
-							<span class="date">Jun 12, 2024</span>
-						</div>
-					</div>
+					<BlogItem
+						v-for="blog in blogStore.blogs"
+						:key="blog.id"
+						:category="blog.category"
+						:blogCoverPhoto="blog.blogCoverPhoto"
+						:blogTitle="blog.blogTitle"
+						:blogDesc="blog.blogDesc"
+						:blogDate="blog.blogDate"
+					/>
 				</div>
 			</div>
 		</div>
@@ -85,14 +43,11 @@
 </template>
 
 <script setup>
-	import { useStore } from "vuex";
 	import { computed } from "vue";
+	import BlogItem from "../items/BlogItem.vue";
+	import { useBlogStore } from "@/store/blogs";
 
-	const store = useStore();
-
-	const user = computed(() => {
-		return store.state.user;
-	});
+	const blogStore = useBlogStore();
 </script>
 
 <style lang="css" scoped>
