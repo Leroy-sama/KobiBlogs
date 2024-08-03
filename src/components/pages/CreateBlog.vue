@@ -62,99 +62,10 @@
 	import { getFirestore } from "firebase/firestore";
 	import { firebaseApp } from "@/firebase/firebaseInit";
 
-	const store = useStore();
 	const error = ref(null);
 	const errorMsg = ref(null);
 	const file = ref(null);
 	const blogPhoto = ref(null);
-
-	const profileId = computed(() => {
-		return store.state.profileId;
-	});
-
-	const blogCoverPhotoName = computed(() => {
-		return store.state.blogPhotoName;
-	});
-
-	const blogTitle = computed({
-		get() {
-			return store.state.blogTitle.value;
-		},
-		set(payload) {
-			store.commit("updateBlogTitle", payload);
-		},
-	});
-	const blogHTML = computed({
-		get() {
-			return store.state.blogHTML.value;
-		},
-		set(payload) {
-			store.commit("newBlogPost", payload);
-		},
-	});
-
-	const fileChange = () => {
-		file.value = blogPhoto.value.files[0];
-		const fileName = file.value.name;
-		store.commit("fileNameChange", fileName);
-		store.commit("createFileURL", URL.createObjectURL(file.value));
-	};
-
-	const openPreview = () => {
-		store.commit("openPhotoPreview");
-	};
-
-	const imageHandler = async (
-		file,
-		QuillEditor,
-		cursorLocation,
-		resetUploader
-	) => {
-		const storage = getStorage(firebaseApp);
-
-		const imageRef = ref(
-			storage,
-			`documents/blogPhotos/${file.value.name}`
-		);
-
-		const uploadTask = put(imageRef, file.value);
-
-		uploadTask.on(
-			"state_changed",
-			(snapshot) => {
-				console.log(snapshot);
-			},
-			(error) => {
-				console.log(error);
-			},
-			async () => {
-				const downloadURL = await imageRef.getDownloadURL();
-				QuillEditor.insertEmbed(cursorLocation, "image", downloadURL);
-				resetUploader();
-				console.log(cursorLocation);
-			}
-		);
-	};
-
-	const uploadBlog = () => {
-		if (blogTitle.length !== 0 && blogHTML.length !== 0) {
-			if (file.value) {
-				//
-				return;
-			}
-			error.value = true;
-			errorMsg.value = "Please ensure you uploaded a cover photo";
-			setTimeout(() => {
-				error.value = false;
-			}, 5000);
-		}
-		error.value = true;
-		errorMsg.value =
-			"Please ensure blogtitle and blog post has been filled";
-		setTimeout(() => {
-			error.value = false;
-		}, 5000);
-	};
 </script>
 
 <style lang="scss">

@@ -28,7 +28,7 @@
 				</div>
 				<div class="otherposts">
 					<BlogItem
-						v-for="blog in blogStore.blogs"
+						v-for="blog in blogStore.blogs.slice(0, 3)"
 						:key="blog.id"
 						:category="blog.category"
 						:blogCoverPhoto="blog.blogCoverPhoto"
@@ -37,6 +37,9 @@
 						:blogDate="blog.blogDate"
 					/>
 				</div>
+			</div>
+			<div class="btn">
+				<RouterLink to="/blogs">All Blogs</RouterLink>
 			</div>
 		</div>
 	</section>
@@ -48,6 +51,8 @@
 	import { useBlogStore } from "@/store/blogs";
 
 	const blogStore = useBlogStore();
+
+	const limitedBlogs = computed(() => {});
 </script>
 
 <style lang="css" scoped>
@@ -145,6 +150,45 @@
 
 	.post__details .date {
 		color: rgb(49, 49, 49);
+	}
+
+	.btn {
+		display: flex;
+		justify-content: center;
+	}
+
+	.btn a {
+		cursor: pointer;
+		border: 0;
+		background: var(--color2);
+		color: #fff;
+		padding: 1em 1.5em;
+		text-decoration: none;
+		position: relative;
+		z-index: 1;
+	}
+
+	.btn a::after {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0, 0, 0, 0.5);
+
+		z-index: -1;
+		transition: transform 300ms ease-in;
+	}
+
+	.btn a::after {
+		transform: scaleX(0);
+		transform-origin: right;
+	}
+
+	.btn a:hover::after {
+		transform: scaleX(1);
+		transform-origin: left;
 	}
 
 	@media (min-width: 700px) {
