@@ -12,15 +12,11 @@ const routes = [
 	},
 	{
 		path: "/blogs",
-		component: () => import("@/components/pages/BlogDetails.vue"),
+		component: () => import("@/components/pages/BlogsPage.vue"),
 	},
 	{
 		path: "/create-blog",
 		component: () => import("@/components/pages/CreateBlog.vue"),
-	},
-	{
-		path: "/loginpage",
-		component: () => import("@/components/pages/LoginPage.vue"),
 	},
 	{
 		path: "/login",
@@ -45,6 +41,10 @@ const routes = [
 	{
 		path: "/blog-preview",
 		component: () => import("@/components/pages/BlogPreview.vue"),
+	},
+	{
+		path: "/:catchAll(.*)",
+		component: () => import("@/components/pages/NotFound.vue"),
 	},
 ];
 

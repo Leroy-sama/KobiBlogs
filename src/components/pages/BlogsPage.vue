@@ -16,13 +16,16 @@
 </template>
 
 <script setup>
+	import { useBlogStore } from "@/store/blogs";
 	import BlogItem from "@/components/items/BlogItem.vue";
+
+	const blogStore = useBlogStore();
 </script>
 
 <style scoped>
 	.blogs {
 		display: grid;
-		grid-template-columns: repeat(4, 1fr);
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 		gap: 2em;
 		background-color: whitesmoke;
 		padding: 2em;

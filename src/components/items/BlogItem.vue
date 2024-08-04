@@ -5,7 +5,7 @@
 			<img :src="blogCoverPhoto" alt="" />
 		</div>
 		<div class="post__details">
-			<RouterLink to="/blogs">
+			<RouterLink to="/blogs" class="post__link">
 				<h2 class="post__head">{{ blogTitle }}</h2>
 			</RouterLink>
 			<p class="post__desc">
@@ -28,59 +28,39 @@
 </script>
 
 <style scoped>
-	.blog-card {
+	.post-img {
 		position: relative;
-		cursor: pointer;
-		border-radius: 5px;
-		background-color: #fff;
-		transition: 1.5s ease all;
 	}
 
-	.blog-card:hover {
-		transform: rotateZ(-1deg) scale(1.02);
-		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-			0 2px 4px -1px rgba(0, 0, 0, 0.06);
-	}
-
-	.info {
-		padding: 1.5em;
-		display: grid;
-		gap: 1em;
-	}
-
-	.icons {
-		display: flex;
+	.post-img .tag {
+		background-color: wheat;
+		font-size: 0.7rem;
+		text-transform: uppercase;
+		font-weight: 700;
+		padding: 0.5rem;
 		position: absolute;
-		top: 10px;
-		right: 10px;
-		z-index: 99;
+		top: 1rem;
+		left: 1rem;
+		z-index: 111;
 	}
 
-	.icon {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		width: 35px;
-		height: 35px;
-		border-radius: 50%;
-		background-color: #fff;
-		transition: 0.5s ease all;
+	.post-img img {
+		aspect-ratio: 1 / 1;
+		object-fit: cover;
 	}
 
-	.icon:hover {
-		background: black;
+	.post__details {
+		padding: 1rem 0;
+		display: grid;
+		gap: 0.8rem;
 	}
 
-	.info h4 {
-		color: var(--color2);
+	.post__details .date {
+		color: rgb(49, 49, 49);
 	}
 
-	.info a {
-		align-self: flex-end;
-	}
-
-	.edit,
-	.delete {
-		color: red;
+	.post__link {
+		text-decoration: none;
+		color: var(--colorBlack);
 	}
 </style>

@@ -21,7 +21,7 @@
 					>
 				</li>
 				<li>
-					<RouterLink to="/loginpage" @click="closeNavMenu"
+					<RouterLink to="/login" @click="closeNavMenu"
 						>Login/Register</RouterLink
 					>
 				</li>

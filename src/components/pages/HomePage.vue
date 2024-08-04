@@ -121,37 +121,6 @@
 		gap: 2rem;
 	}
 
-	.post-img {
-		position: relative;
-	}
-
-	.post-img .tag {
-		background-color: wheat;
-		font-size: 0.7rem;
-		text-transform: uppercase;
-		font-weight: 700;
-		padding: 0.5rem;
-		position: absolute;
-		top: 1rem;
-		left: 1rem;
-		z-index: 111;
-	}
-
-	.post-img img {
-		aspect-ratio: 1 / 1;
-		object-fit: cover;
-	}
-
-	.post__details {
-		padding: 1rem 0;
-		display: grid;
-		gap: 0.8rem;
-	}
-
-	.post__details .date {
-		color: rgb(49, 49, 49);
-	}
-
 	.btn {
 		display: flex;
 		justify-content: center;
