@@ -30,9 +30,8 @@
 				</div>
 				<div class="forgot">
 					<p>
-						Forgot password?<RouterLink to="/forgot"
-							>Reset</RouterLink
-						>
+						Forgot password?
+						<RouterLink to="/forgot">Reset</RouterLink>
 					</p>
 				</div>
 			</form>
@@ -145,6 +144,7 @@
 	.form__control input::placeholder {
 		position: absolute;
 		font-size: 1rem;
+		transition: all 0.3s ease-in-out;
 	}
 
 	.form__control input:focus::placeholder {
