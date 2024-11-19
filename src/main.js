@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import { createPinia } from "pinia";
-import BaseButton from "./ui/BaseButton.vue";
+import BaseButton from "./components/ui/BaseButton.vue";
 
 const app = createApp(App);
 const pinia = createPinia();

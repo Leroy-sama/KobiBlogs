@@ -11,12 +11,17 @@
 			<p class="post__desc">
 				{{ blogDesc }}
 			</p>
-			<span class="date">{{ blogDate }}</span>
+			<div class="date-flex">
+				<Date />
+				<span class="date">{{ blogDate }}</span>
+			</div>
 		</div>
 	</div>
 </template>
 
 <script setup>
+	import Date from "@/assets/icons/Date.vue";
+
 	const props = defineProps([
 		"id",
 		"category",
@@ -45,7 +50,7 @@
 	}
 
 	.post-img img {
-		aspect-ratio: 1 / 1;
+		aspect-ratio: 4/3;
 		object-fit: cover;
 	}
 
@@ -62,5 +67,11 @@
 	.post__link {
 		text-decoration: none;
 		color: var(--colorBlack);
+	}
+
+	.date-flex {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
 	}
 </style>

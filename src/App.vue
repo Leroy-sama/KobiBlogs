@@ -1,7 +1,7 @@
 <script setup>
 	import { RouterView } from "vue-router";
-	import TheHeader from "@/components/layout/TheHeader.vue";
-	import TheFooter from "@/components/layout/TheFooter.vue";
+	import TheHeader from "./layout/TheHeader.vue";
+	import TheFooter from "./layout/TheFooter.vue";
 </script>
 
 <template>
@@ -10,7 +10,7 @@
 	<TheFooter />
 </template>
 
-<style>
+<style lang="css">
 	@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap");
 
 	:root {
@@ -26,7 +26,7 @@
 		margin: 0;
 		padding: 0;
 		box-sizing: border-box;
-		font-family: "Raleway", sans-serif;
+		font-family: "Raleway", system-ui, sans-serif;
 		line-height: 1.5;
 	}
 

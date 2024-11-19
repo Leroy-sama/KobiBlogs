@@ -15,10 +15,13 @@
 				<div class="latest-post">
 					<img src="@/assets/img/latest_post.webp" alt="" />
 					<div class="latest-post__details">
-						<span class="tag">AI</span>
+						<div class="span-box">
+							<span class="tag">AI</span>
+						</div>
 						<h2 class="latest-post__title">
 							Innovative AI Applications in the Real World
 						</h2>
+						gap: 1.5rem;
 						<p class="latest-post__smalldesc">
 							Discover how AI can help businesses improve their
 							customer experience and drive more sales.
@@ -47,7 +50,7 @@
 
 <script setup>
 	import { computed } from "vue";
-	import BlogItem from "../items/BlogItem.vue";
+	import BlogItem from "../components/items/BlogItem.vue";
 	import { useBlogStore } from "@/store/blogs";
 
 	const blogStore = useBlogStore();
@@ -91,7 +94,7 @@
 	}
 
 	.latest-post__details {
-		padding: 1rem;
+		padding: 1.5rem;
 		display: grid;
 		gap: 0.5rem;
 	}
@@ -131,7 +134,7 @@
 		border: 0;
 		background: var(--color2);
 		color: #fff;
-		padding: 1em 1.5em;
+		padding: 0.75em 1.5em;
 		text-decoration: none;
 		position: relative;
 		z-index: 1;
@@ -175,6 +178,10 @@
 
 		.latest-post {
 			display: flex;
+		}
+
+		.latest-post img {
+			max-width: 700px;
 		}
 
 		.latest-post__details {

@@ -1,46 +1,13 @@
 <template>
-	<section>
-		<div class="register">
-			<p class="form-question">
-				Already have an account?
-				<RouterLink to="/login">Login</RouterLink>
-			</p>
-			<h1 class="form__title">Create your KobiBlogs Account</h1>
+	<section class="register">
+		<div class="register__wrapper">
+			<h1 class="register__title">Sign Up</h1>
 			<form @submit.prevent="register">
-				<div
-					class="form__control"
-					:class="{ invalid: !firstName.isValid }"
-				>
-					<input
-						type="text"
-						placeholder="First Name"
-						id="firstName"
-						v-model="firstName.val"
-						@blur="clearValidity(firstName)"
-					/>
-					<p class="err-msg" v-if="!firstName.isValid">
-						First name must not be empty
-					</p>
-				</div>
-				<div
-					class="form__control"
-					:class="{ invalid: !lastName.isValid }"
-				>
-					<input
-						type="text"
-						placeholder="Last Name"
-						id="lastName"
-						v-model="lastName.val"
-						@blur="clearValidity(lastName)"
-					/>
-					<p class="err-msg" v-if="!lastName.isValid">
-						Last name must not be empty
-					</p>
-				</div>
 				<div
 					class="form__control"
 					:class="{ invalid: !username.isValid }"
 				>
+					<label for="username">Username</label>
 					<input
 						type="text"
 						placeholder="Username"
@@ -53,6 +20,7 @@
 					</p>
 				</div>
 				<div class="form__control" :class="{ invalid: !email.isValid }">
+					<label for="email">Email Address</label>
 					<input
 						type="email"
 						placeholder="Email Address"
@@ -68,6 +36,7 @@
 					class="form__control"
 					:class="{ invalid: !password.isValid }"
 				>
+					<label for="password">Password</label>
 					<input
 						type="password"
 						placeholder="Password"
@@ -86,6 +55,10 @@
 			<p class="err-msg" v-if="!formIsValid">
 				Please fix the above errors and submit again
 			</p>
+			<p class="form-question">
+				Already have an account?
+				<RouterLink to="/login">Login</RouterLink>
+			</p>
 		</div>
 	</section>
 </template>
@@ -99,14 +72,6 @@
 
 	const router = useRouter();
 
-	const firstName = reactive({
-		val: "",
-		isValid: true,
-	});
-	const lastName = reactive({
-		val: "",
-		isValid: true,
-	});
 	const email = reactive({
 		val: "",
 		isValid: true,
@@ -127,14 +92,6 @@
 
 	const validateForm = () => {
 		formIsValid.value = true;
-		if (firstName.val === "") {
-			firstName.isValid = false;
-			formIsValid.value = false;
-		}
-		if (lastName.val === "") {
-			lastName.isValid = false;
-			formIsValid.value = false;
-		}
 		if (username.val === "") {
 			username.isValid = false;
 			formIsValid.value = false;
@@ -184,8 +141,6 @@
 			const db = getFirestore(firebaseApp);
 			const userUid = createUser.user.uid;
 			const userData = {
-				firstName: firstName.val,
-				lastName: lastName.val,
 				username: username.val,
 				email: email.val,
 			};
@@ -197,14 +152,7 @@
 	};
 </script>
 
-<style scoped>
-	.form {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		flex-direction: column;
-	}
-
+<style lang="css" scoped>
 	.form__title {
 		color: rgb(2, 2, 15);
 	}
@@ -214,12 +162,11 @@
 	}
 
 	.form__control input {
+		font: inherit;
 		max-width: 600px;
 		width: 100%;
-		outline: var(--color2);
-		border: none;
-		background-color: whitesmoke;
-		padding: 1em;
+		border: 1px solid var(--color2);
+		outline: none;
 	}
 
 	.invalid input {
@@ -229,6 +176,7 @@
 
 	.err-msg {
 		color: salmon;
+		font-size: 0.8rem;
 	}
 	.register {
 		display: grid;
@@ -236,8 +184,6 @@
 	}
 
 	.btn {
-		display: flex;
-		justify-content: center;
 	}
 
 	.btn button {
@@ -248,6 +194,7 @@
 		padding: 1em 1.5em;
 		position: relative;
 		z-index: 1;
+		width: 100%;
 	}
 
 	.btn button::after {

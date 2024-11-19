@@ -1,40 +1,50 @@
 <template>
-	<section>
-		<div class="login">
-			<p class="form-question">
-				Don't have an account?
-				<RouterLink to="/register">Register</RouterLink>
+	<section class="login">
+		<div class="login__wrapper">
+			<h1 class="login__head">Login</h1>
+			<p class="login__text">
+				Enter your account details to login to your account
 			</p>
-			<h1 class="form__title">Sign In to KobiBlogs</h1>
-			<form @submit.prevent="signIn">
-				<div class="form__control">
-					<input
-						type="email"
-						placeholder="Email Address"
-						id="email"
-						v-model="email.val"
-						@blur="clearValidity(email)"
-					/>
-				</div>
-				<div class="form__control">
-					<input
-						type="password"
-						placeholder="Password"
-						id="password"
-						v-model.number="password.val"
-						@blur="clearValidity(password)"
-					/>
-				</div>
-				<div class="form__control btn">
-					<button type="submit">Login</button>
-				</div>
-				<div class="forgot">
-					<p>
-						Forgot password?
-						<RouterLink to="/forgot">Reset</RouterLink>
-					</p>
-				</div>
-			</form>
+			<div class="form-box">
+				<form action="">
+					<div class="form-control">
+						<label for="email">Email Address</label>
+						<input
+							type="email"
+							id="email"
+							name="email"
+							placeholder="example@me.com"
+						/>
+					</div>
+					<div class="form-control">
+						<label for="password">Password</label>
+						<input
+							type="password"
+							id="password"
+							name="password"
+							placeholder="********"
+						/>
+					</div>
+					<div class="ctas">
+						<RouterLink to="/forgot">Forgot Password?</RouterLink>
+						<div class="check">
+							<input
+								type="checkbox"
+								name="checkbox"
+								id="checkbox"
+							/>
+							<label for="checkbox">Remember Me</label>
+						</div>
+					</div>
+					<div class="btn">
+						<button>Sign In</button>
+					</div>
+				</form>
+				<p class="login__quiz">
+					Not a member?
+					<RouterLink to="/register">Sign Up</RouterLink>
+				</p>
+			</div>
 		</div>
 	</section>
 </template>
@@ -43,7 +53,7 @@
 	import { reactive, ref } from "vue";
 	import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 	import { firebaseApp } from "@/firebase/firebaseInit.js";
-	import { useRouter } from "vue-router";
+	import { RouterLink, useRouter } from "vue-router";
 
 	const router = useRouter();
 
@@ -116,44 +126,55 @@
 </script>
 
 <style scoped>
-	.login {
-		display: grid;
-		place-content: center;
-		padding: 4em 0;
+	.login__wrapper {
+		max-width: 600px;
+		margin-inline: auto;
+		padding-block: 2rem;
 	}
 
-	.form__title {
+	.login__head,
+	.login__text {
+		text-align: center;
 		color: rgb(2, 2, 15);
 	}
 
-	.form__control {
-		padding: 0.5em 0;
+	.login__head {
+		font-size: 2.5rem;
 	}
 
-	.form__control input {
-		max-width: 700px;
+	.form-box {
+	}
+
+	form {
+		display: grid;
+		gap: 1rem;
+		padding: 2rem;
+		margin-inline: auto;
+	}
+
+	.form-control label {
+		display: block;
+		padding: 0.5rem 0;
+	}
+
+	.form-control input {
+		font: inherit;
+		padding: 0.8rem;
 		width: 100%;
 		outline: var(--color2);
-		border: none;
-		border-bottom: 1px solid var(--colorBlack);
-
-		padding: 1em 0;
 		position: relative;
 	}
 
-	.form__control input::placeholder {
-		position: absolute;
-		font-size: 1rem;
-		transition: all 0.3s ease-in-out;
+	.ctas {
+		display: flex;
+		justify-content: space-between;
 	}
 
-	.form__control input:focus::placeholder {
-		position: absolute;
-		top: 0;
-		left: 0;
-		font-size: 0.7rem;
-		text-transform: uppercase;
+	.check {
+		display: flex;
+		gap: 0.5rem;
 	}
+
 	.invalid input {
 		border: 1px solid salmon;
 		background-color: rgb(255, 187, 179);
@@ -164,11 +185,20 @@
 	}
 
 	.btn {
-		display: flex;
-		justify-content: center;
+		/* display: flex; */
+		/* justify-content: center; */
+	}
+
+	.login__quiz {
+		padding-left: 2rem;
+	}
+
+	.login__quiz > a {
+		text-decoration: none;
 	}
 
 	.btn button {
+		width: 100%;
 		cursor: pointer;
 		border: 0;
 		background: var(--color2);

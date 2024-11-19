@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomePage from "@/components/pages/HomePage.vue";
+import HomePage from "../pages/HomePage.vue";
 
 const routes = [
 	{
@@ -12,39 +12,39 @@ const routes = [
 	},
 	{
 		path: "/blogs",
-		component: () => import("@/components/pages/BlogsPage.vue"),
+		component: () => import("../pages/BlogsPage.vue"),
 	},
 	{
 		path: "/create-blog",
-		component: () => import("@/components/pages/CreateBlog.vue"),
+		component: () => import("../pages/CreateBlog.vue"),
 	},
 	{
 		path: "/login",
-		component: () => import("@/components/pages/LoginForm.vue"),
+		component: () => import("../pages/LoginForm.vue"),
 	},
 	{
 		path: "/register",
-		component: () => import("@/components/pages/RegisterForm.vue"),
+		component: () => import("../pages/RegisterForm.vue"),
 	},
 	{
 		path: "/forgot",
-		component: () => import("@/components/pages/ForgotPassword.vue"),
+		component: () => import("../pages/ForgotPassword.vue"),
 	},
 	{
 		path: "/profile",
-		component: () => import("@/components/user/UserProfile.vue"),
+		component: () => import("../components/user/UserProfile.vue"),
 	},
 	{
 		path: "/admin",
-		component: () => import("@/components/user/Admin.vue"),
+		component: () => import("../components/user/Admin.vue"),
 	},
 	{
 		path: "/blog-preview",
-		component: () => import("@/components/pages/BlogPreview.vue"),
+		component: () => import("../pages/BlogPreview.vue"),
 	},
 	{
 		path: "/:catchAll(.*)",
-		component: () => import("@/components/pages/NotFound.vue"),
+		component: () => import("../pages/NotFound.vue"),
 	},
 ];
 
