@@ -6,7 +6,7 @@
 				Enter your account details to login to your account
 			</p>
 			<div class="form-box">
-				<form action="">
+				<form>
 					<div class="form-control">
 						<label for="email">Email Address</label>
 						<input
@@ -125,7 +125,7 @@
 	};
 </script>
 
-<style scoped>
+<style lang="css" scoped>
 	.login__wrapper {
 		max-width: 600px;
 		margin-inline: auto;
@@ -142,14 +142,11 @@
 		font-size: 2.5rem;
 	}
 
-	.form-box {
-	}
-
 	form {
 		display: grid;
 		gap: 1rem;
-		padding: 2rem;
-		margin-inline: auto;
+		padding-block: 2rem;
+		/* margin-inline: auto; */
 	}
 
 	.form-control label {
@@ -182,15 +179,6 @@
 
 	.err-msg {
 		color: salmon;
-	}
-
-	.btn {
-		/* display: flex; */
-		/* justify-content: center; */
-	}
-
-	.login__quiz {
-		padding-left: 2rem;
 	}
 
 	.login__quiz > a {

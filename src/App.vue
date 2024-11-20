@@ -19,7 +19,7 @@
 		--color3: hsl(224, 23%, 55%);
 		--color4: hsla(223, 47%, 23%, 0.5);
 		--color5: hsl(0, 0%, 27%);
-		--colorBlack: hsl(251, 65%, 3%);
+		--colorBlack: rgb(2, 2, 15);
 	}
 
 	* {
