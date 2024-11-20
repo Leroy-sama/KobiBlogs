@@ -37,7 +37,7 @@
 
 <script setup>
 	import { ref, computed } from "vue";
-	import BaseModal from "@/ui/BaseModal.vue";
+	import BaseModal from "@/components/ui/BaseModal.vue";
 	import { Icon } from "@iconify/vue";
 
 	// const store = useStore();
