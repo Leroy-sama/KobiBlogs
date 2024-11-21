@@ -42,7 +42,7 @@
 				</div>
 			</div>
 			<div class="btn">
-				<RouterLink to="/blogs">All Blogs</RouterLink>
+				<BaseButton link to="/blogs">All Blogs</BaseButton>
 			</div>
 		</div>
 	</section>
@@ -64,7 +64,8 @@
 	}
 
 	.home__wrapper {
-		margin: 0 1.5rem;
+		width: min(90%, 80rem);
+		margin: 0 auto;
 	}
 
 	.hero {
@@ -125,11 +126,12 @@
 	}
 
 	.btn {
-		display: flex;
-		justify-content: center;
+		text-align: center;
+		/* display: flex;
+		justify-content: center; */
 	}
 
-	.btn a {
+	/* .btn a {
 		cursor: pointer;
 		border: 0;
 		background: var(--color2);
@@ -161,17 +163,12 @@
 	.btn a:hover::after {
 		transform: scaleX(1);
 		transform-origin: left;
-	}
+	} */
 
 	@media (min-width: 700px) {
 	}
 
 	@media (min-width: 1000px) {
-		.home__wrapper {
-			max-width: 1200px;
-			margin: 0 auto;
-		}
-
 		.hero__head {
 			font-size: 2.5rem;
 		}

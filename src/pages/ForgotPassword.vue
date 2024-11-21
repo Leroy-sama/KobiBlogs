@@ -24,9 +24,9 @@
 						/>
 					</div>
 					<div class="sbt-btn">
-						<button type="submit" @click.prevent="resetPassword">
+						<BaseButton @click.prevent="resetPassword">
 							Reset
-						</button>
+						</BaseButton>
 					</div>
 				</form>
 				<p>Back to <RouterLink to="/login">Login</RouterLink></p>
@@ -74,12 +74,13 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		min-height: 60vh;
+		min-height: 80vh;
 	}
 
 	.forgot__wrapper {
 		max-width: 500px;
 		margin-inline: auto;
+		padding-inline: 1rem;
 	}
 
 	.forgot__wrapper h2 {

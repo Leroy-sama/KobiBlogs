@@ -30,6 +30,10 @@
 		line-height: 1.5;
 	}
 
+	a {
+		text-decoration: none;
+	}
+
 	img {
 		width: 100%;
 	}

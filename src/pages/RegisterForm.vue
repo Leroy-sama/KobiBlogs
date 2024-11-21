@@ -56,7 +56,7 @@
 						</p>
 					</div>
 					<div class="form__control btn">
-						<button type="submit">Sign Up</button>
+						<BaseButton>Sign Up</BaseButton>
 					</div>
 				</form>
 				<p class="form-question">
@@ -164,7 +164,7 @@
 	.register__wrapper {
 		max-width: 600px;
 		margin-inline: auto;
-		padding-block: 2rem;
+		padding: 2rem 1rem;
 	}
 
 	.register__head,
@@ -207,7 +207,7 @@
 		font-size: 0.8rem;
 	}
 
-	.btn {
+	/* .btn {
 	}
 
 	.btn button {
@@ -215,7 +215,7 @@
 		border: 0;
 		background: var(--color2);
 		color: #fff;
-		padding: 1em 1.5em;
+		padding: 0.75rem 1.5rem;
 		position: relative;
 		z-index: 1;
 		width: 100%;
@@ -242,5 +242,5 @@
 	.btn button:hover::after {
 		transform: scaleX(1);
 		transform-origin: left;
-	}
+	} */
 </style>

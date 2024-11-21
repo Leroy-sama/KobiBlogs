@@ -37,7 +37,7 @@
 						</div>
 					</div>
 					<div class="btn">
-						<button>Sign In</button>
+						<BaseButton>Sign In</BaseButton>
 					</div>
 				</form>
 				<p class="login__quiz">
@@ -126,10 +126,14 @@
 </script>
 
 <style lang="css" scoped>
+	.login {
+		min-height: 70vh;
+	}
+
 	.login__wrapper {
 		max-width: 600px;
 		margin-inline: auto;
-		padding-block: 2rem;
+		padding: 2rem 1rem;
 	}
 
 	.login__head,
