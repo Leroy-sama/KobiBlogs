@@ -202,12 +202,12 @@
 	}
 
 	.invalid input {
-		border: 1px solid salmon;
+		border: 1px solid rgb(255, 80, 60);
 		background-color: rgb(255, 187, 179);
 	}
 
 	.err-msg {
-		color: salmon;
+		color: rgb(255, 80, 60);
 		font-size: 0.8rem;
 	}
 

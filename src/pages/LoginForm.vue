@@ -7,7 +7,10 @@
 			</p>
 			<div class="form-box">
 				<form @submit.prevent="signIn">
-					<div class="form-control">
+					<div
+						class="form-control"
+						:class="{ invalid: !email.isValid }"
+					>
 						<label for="email">Email Address</label>
 						<input
 							type="email"
@@ -17,8 +20,14 @@
 							v-model="email.val"
 							@blur="clearValidity(email)"
 						/>
+						<p class="err__msg" v-if="!email.isValid">
+							Email must not be empty
+						</p>
 					</div>
-					<div class="form-control">
+					<div
+						class="form-control"
+						:class="{ invalid: !password.isValid }"
+					>
 						<label for="password">Password</label>
 						<input
 							type="password"
@@ -28,6 +37,9 @@
 							v-model="password.val"
 							@blur="clearValidity(password)"
 						/>
+						<p class="err__msg" v-if="!password.isValid">
+							Email must not be empty
+						</p>
 					</div>
 					<div class="ctas">
 						<RouterLink to="/forgot">Forgot Password?</RouterLink>
@@ -93,20 +105,6 @@
 			formIsValid.value = false;
 		}
 	};
-
-	// const submitForm = () => {
-	//     validateForm();
-
-	//     if (!formIsValid) {
-	//         return;
-	//     }
-	//     const formData = {
-	//         email: email,
-	//         password: password,
-	//     };
-
-	//     console.log(formData);
-	// };
 
 	const signIn = async () => {
 		validateForm();
@@ -186,13 +184,13 @@
 	}
 
 	.invalid input {
-		border: 1px solid salmon;
+		border: 1px solid rgb(255, 80, 60);
 		background-color: rgb(255, 187, 179);
 	}
 
 	.err__msg {
-		color: salmon;
-		font-size: 0.9rem;
+		color: rgb(255, 80, 60);
+		font-size: 0.8rem;
 	}
 
 	.login__quiz > a {
