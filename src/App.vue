@@ -2,6 +2,27 @@
 	import { RouterView } from "vue-router";
 	import TheHeader from "./layout/TheHeader.vue";
 	import TheFooter from "./layout/TheFooter.vue";
+
+	import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+	import { firebaseApp } from "./firebase/firebaseInit";
+	import { onMounted } from "vue";
+	import { useUserStore } from "./store/user";
+
+	onMounted(() => {
+		const userStore = useUserStore();
+		const auth = getAuth(firebaseApp);
+		onAuthStateChanged(auth, (user) => {
+			userStore.updateUser(user);
+			if (user) {
+				userStore.getCurrentUser();
+				const uid = user.uid;
+				console.log(uid);
+				console.log(userStore.profileEmail);
+			} else {
+				console.log("No active user");
+			}
+		});
+	});
 </script>
 
 <template>

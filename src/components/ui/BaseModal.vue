@@ -2,12 +2,14 @@
 	<div class="modal">
 		<div class="modal-content">
 			<p>{{ modalMessage }}</p>
-			<button @click="closeModal">Close</button>
+			<BaseButton @click="closeModal">Close</BaseButton>
 		</div>
 	</div>
 </template>
 
 <script setup>
+	import BaseButton from "./BaseButton.vue";
+
 	const emit = defineEmits(["close-modal"]);
 
 	const props = defineProps(["modalMessage"]);
@@ -17,12 +19,12 @@
 	};
 </script>
 
-<style scoped>
+<style lang="css" scoped>
 	.modal {
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		z-index: 101;
+		z-index: 11010;
 		position: absolute;
 		width: 100%;
 		height: 100%;
@@ -34,17 +36,14 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+		gap: 1.5rem;
 		border-radius: 8px;
-		width: 300px;
-		padding: 40px 30px;
+		max-width: 300px;
+		padding: 2rem;
 		background-color: #fff;
 	}
 
 	p {
 		text-align: center;
-	}
-
-	button {
-		align-items: center;
 	}
 </style>

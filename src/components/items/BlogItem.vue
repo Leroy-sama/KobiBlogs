@@ -5,7 +5,7 @@
 			<img :src="blogCoverPhoto" alt="" />
 		</div>
 		<div class="post__details">
-			<RouterLink to="/blogs" class="post__link">
+			<RouterLink to="/blogs/1" class="post__link">
 				<h2 class="post__head">{{ blogTitle }}</h2>
 			</RouterLink>
 			<p class="post__desc">

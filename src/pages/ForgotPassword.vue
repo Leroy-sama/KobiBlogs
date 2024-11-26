@@ -1,12 +1,12 @@
 <template>
 	<section class="forgot">
+		<BaseModal
+			v-if="modalActive"
+			:modalMessage="modalMessage"
+			@close-modal="closeModal"
+		/>
+		<LoadingSpinner v-if="loading" />
 		<div class="forgot__wrapper">
-			<BaseModal
-				v-if="modalActive"
-				:modalMessage="modalMessage"
-				@close-modal="closeModal"
-			/>
-			<LoadingSpinner v-if="loading" />
 			<h2>Forgot Password</h2>
 			<p>
 				Forgot password? Enter your email to reset it.
@@ -42,7 +42,7 @@
 	import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 	const email = ref(null);
-	const modalActive = ref(false);
+	const modalActive = ref(null);
 	const modalMessage = ref("");
 	const loading = ref(null);
 

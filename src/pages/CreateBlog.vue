@@ -1,41 +1,35 @@
 <template>
-	<main>
-		<div class="wrapper">
-			<div class="create-post">
-				<div class="container">
-					<h1 class="container__head">
-						Actively looking for an editor
-					</h1>
-					<p class="container__text">
-						I have tried PrimeVue, vue quill and some others i can't
-						remember but they have issues. Bear with me please,
-						updates incoming!!
-					</p>
-				</div>
-			</div>
+	<section class="create">
+		<div class="create__wrapper">
+			<h1 class="container__head">Create Blog</h1>
+			<p class="container__text">
+				Whatever topic you want to write, just start typing on the
+				editor below.
+			</p>
 			<div class="editor">
-				<Editor v-model="value" editorStyle="height: 320px" />
+				<Editor
+					v-model="value"
+					editorStyle="height: 720px"
+					class="editor-edit"
+				/>
 			</div>
 		</div>
-	</main>
+	</section>
 </template>
 
 <script setup>
 	import { ref } from "vue";
-
 	import Editor from "primevue/editor";
 
-	const isEven = (num) => num % 2 === 0;
+	const value = ref("");
 </script>
 
 <style lang="css" scoped>
-	main {
-		min-height: 70vh;
-		padding: 2rem;
+	.create {
 	}
 
-	.wrapper {
-		max-width: 1200px;
+	.create__wrapper {
+		width: min(90%, 80rem);
 		margin-inline: auto;
 	}
 
@@ -49,7 +43,9 @@
 		text-align: center;
 	}
 
-	.editor {
-		border-radius: 2px solid red;
+	.editor-edit {
+		border: 1px solid var(--colorBlack);
+		margin-block: 2rem;
+		border-radius: 10px;
 	}
 </style>

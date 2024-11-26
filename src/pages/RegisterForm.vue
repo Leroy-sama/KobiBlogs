@@ -139,23 +139,27 @@
 		}
 
 		if (formIsValid) {
-			const firebaseAuth = getAuth(firebaseApp);
-			const createUser = await createUserWithEmailAndPassword(
-				firebaseAuth,
-				email.val,
-				password.val
-			);
-			console.log(createUser.user);
-			const db = getFirestore(firebaseApp);
-			const userUid = createUser.user.uid;
-			const userData = {
-				username: username.val,
-				email: email.val,
-			};
-			const userDocRef = doc(db, "users", userUid);
-			await setDoc(userDocRef, userData);
-			console.log("user data stored in Firestore:", userData);
-			router.push("/home");
+			try {
+				const firebaseAuth = getAuth(firebaseApp);
+				const createUser = await createUserWithEmailAndPassword(
+					firebaseAuth,
+					email.val,
+					password.val
+				);
+				console.log(createUser.user);
+				const db = getFirestore(firebaseApp);
+				const userUid = createUser.user.uid;
+				const userData = {
+					username: username.val,
+					email: email.val,
+				};
+				const userDocRef = doc(db, "users", userUid);
+				await setDoc(userDocRef, userData);
+				console.log("user data stored in Firestore:", userData);
+				router.push("/");
+			} catch (e) {
+				console.error("Error creating user:", e);
+			}
 		}
 	};
 </script>

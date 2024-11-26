@@ -6,7 +6,7 @@
 				Enter your account details to login to your account
 			</p>
 			<div class="form-box">
-				<form>
+				<form @submit.prevent="signIn">
 					<div class="form-control">
 						<label for="email">Email Address</label>
 						<input
@@ -14,6 +14,8 @@
 							id="email"
 							name="email"
 							placeholder="example@me.com"
+							v-model="email.val"
+							@blur="clearValidity(email)"
 						/>
 					</div>
 					<div class="form-control">
@@ -23,6 +25,8 @@
 							id="password"
 							name="password"
 							placeholder="********"
+							v-model="password.val"
+							@blur="clearValidity(password)"
 						/>
 					</div>
 					<div class="ctas">
@@ -35,6 +39,9 @@
 							/>
 							<label for="checkbox">Remember Me</label>
 						</div>
+					</div>
+					<div v-show="error" class="err">
+						<p class="err__msg">{{ errorMsg }}</p>
 					</div>
 					<div class="btn">
 						<BaseButton>Sign In</BaseButton>
@@ -103,11 +110,11 @@
 
 	const signIn = async () => {
 		validateForm();
-		if (!formIsValid) {
+		if (!formIsValid.value) {
 			return;
 		}
 
-		if (formIsValid) {
+		if (formIsValid.value) {
 			const firebaseAuth = getAuth(firebaseApp);
 			try {
 				const loginUser = await signInWithEmailAndPassword(
@@ -115,8 +122,10 @@
 					email.val,
 					password.val
 				);
-				router.push("/home");
+				router.push("/");
 				console.log(loginUser.user.uid);
+				error.value = false;
+				errorMsg.value = "";
 			} catch (err) {
 				error.value = true;
 				errorMsg.value = err.message;
@@ -181,8 +190,9 @@
 		background-color: rgb(255, 187, 179);
 	}
 
-	.err-msg {
+	.err__msg {
 		color: salmon;
+		font-size: 0.9rem;
 	}
 
 	.login__quiz > a {
