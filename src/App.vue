@@ -26,13 +26,15 @@
 </script>
 
 <template>
-	<TheHeader />
-	<RouterView />
-	<TheFooter />
+	<main>
+		<TheHeader />
+		<RouterView />
+		<TheFooter />
+	</main>
 </template>
 
 <style lang="css">
-	@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap");
+	@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
 
 	:root {
 		--color1: hsl(245, 75%, 52%);
@@ -41,13 +43,32 @@
 		--color4: hsla(223, 47%, 23%, 0.5);
 		--color5: hsl(0, 0%, 27%);
 		--colorBlack: rgb(2, 2, 15);
+
+		--ff-primary: "Nunito Sans", serif;
+		--ff-accent: "Newsreader", serif;
 	}
 
 	* {
 		margin: 0;
 		padding: 0;
 		box-sizing: border-box;
-		font-family: "Raleway", system-ui, sans-serif;
+	}
+
+	body {
+		margin: 0;
+		font-family: var(--ff-primary);
+	}
+
+	h1,
+	h2,
+	h3,
+	h4 {
+		line-height: 1.1;
+		font-family: var(--ff-accent);
+		margin: 0;
+	}
+
+	p {
 		line-height: 1.5;
 	}
 
@@ -59,7 +80,7 @@
 		width: 100%;
 	}
 
-	.post__view {
+	/* .post__view {
 		text-decoration: none;
 		color: #eb1616;
 		position: relative;
@@ -82,5 +103,5 @@
 
 	.post__view:hover::after {
 		transform: scaleX(1);
-	}
+	} */
 </style>

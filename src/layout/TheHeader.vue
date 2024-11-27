@@ -15,36 +15,32 @@
 						>Blogs</RouterLink
 					>
 				</li>
-				<li>
+				<li v-if="user">
 					<RouterLink to="/create-blog" @click="closeNavMenu"
 						>Create Post</RouterLink
 					>
 				</li>
-				<li>
+				<li v-if="!user">
 					<RouterLink to="/login" @click="closeNavMenu"
 						>Login/Register</RouterLink
 					>
 				</li>
 			</ul>
-			<!-- <div
+			<div
 				v-if="user"
 				@click="toggleProfileMenu"
 				class="profile"
 				ref="profile"
 			>
-				<span>{{ store.state.profileInitials }}</span>
+				<span>{{ userStore.profileInitials }}</span>
 				<div v-show="profileMenu" class="profle-menu">
 					<div class="info">
 						<p class="initials">
-							{{ store.state.profileInitials }}
+							{{ userStore.profileInitials }}
 						</p>
 						<div class="right">
-							<p>
-								{{ store.state.profileFirstName }}
-								{{ store.state.profileLastName }}
-							</p>
-							<p>{{ store.state.profileUsername }}</p>
-							<p>{{ store.state.profileEmail }}</p>
+							<p>{{ userStore.profileUsername }}</p>
+							<p>{{ userStore.profileEmail }}</p>
 						</div>
 					</div>
 					<div class="options">
@@ -81,7 +77,7 @@
 						</div>
 					</div>
 				</div>
-			</div> -->
+			</div>
 			<div
 				class="burger"
 				@click="toggleNavMenu"
@@ -98,7 +94,11 @@
 <script setup>
 	import { RouterLink } from "vue-router";
 	import { Icon } from "@iconify/vue";
-	import { reactive, ref } from "vue";
+	import { computed, reactive, ref } from "vue";
+	import { useUserStore } from "@/store/user";
+	import { getAuth, signOut } from "firebase/auth";
+
+	const userStore = useUserStore();
 
 	const state = reactive({
 		isActive: false,
@@ -120,12 +120,28 @@
 			profileMenu.value = !profileMenu.value;
 		}
 	};
+
+	const user = computed(() => {
+		return userStore.user;
+	});
+
+	const logUserOut = () => {
+		const auth = getAuth();
+		signOut(auth)
+			.then(() => {
+				console.log("Successfull logout");
+			})
+			.catch((err) => {
+				console.log("not logged out", err);
+			});
+	};
 </script>
 
-<style scoped>
+<style lang="css" scoped>
 	.branding a {
 		font-size: 1.2rem;
 		font-weight: 700;
+		font-family: var(--ff-accent);
 	}
 
 	a {

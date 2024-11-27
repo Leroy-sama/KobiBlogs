@@ -16,8 +16,10 @@
 			<div class="useful-links">
 				<RouterLink to="/">Home</RouterLink>
 				<RouterLink to="/blogs">Blogs</RouterLink>
-				<RouterLink to="/create-blog">Create Post</RouterLink>
-				<RouterLink to="/login">Login/Register</RouterLink>
+				<RouterLink v-if="user" to="/create-blog"
+					>Create Post</RouterLink
+				>
+				<RouterLink v-else to="/login">Login/Register</RouterLink>
 			</div>
 			<div class="copyright">
 				<p class="cr">copyright 2023. All Rights Reserved</p>
@@ -28,6 +30,13 @@
 
 <script setup>
 	import { Icon } from "@iconify/vue";
+	import { useUserStore } from "@/store/user";
+	import { computed } from "vue";
+
+	const userStore = useUserStore();
+	const user = computed(() => {
+		return userStore.user;
+	});
 </script>
 
 <style scoped>
@@ -40,10 +49,10 @@
 		display: flex;
 		justify-content: center;
 		flex-direction: column;
-		padding: 2em;
+		padding-block: 2rem;
 		gap: 2em;
-		max-width: 1300px;
-		margin: auto;
+		width: min(90%, 80rem);
+		margin-inline: auto;
 	}
 
 	.socials__heading {

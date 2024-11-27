@@ -21,12 +21,14 @@
 						<h2 class="latest-post__title">
 							Innovative AI Applications in the Real World
 						</h2>
-						gap: 1.5rem;
 						<p class="latest-post__smalldesc">
 							Discover how AI can help businesses improve their
 							customer experience and drive more sales.
 						</p>
-						<span class="date">Jul 4, 2024</span>
+						<div class="date-di">
+							<Date />
+							<span class="date">Jul 4, 2024</span>
+						</div>
 					</div>
 				</div>
 				<div class="otherposts">
@@ -49,13 +51,11 @@
 </template>
 
 <script setup>
-	import { computed } from "vue";
 	import BlogItem from "../components/items/BlogItem.vue";
+	import Date from "@/assets/icons/Date.vue";
 	import { useBlogStore } from "@/store/blogs";
 
 	const blogStore = useBlogStore();
-
-	const limitedBlogs = computed(() => {});
 </script>
 
 <style lang="css" scoped>
@@ -73,7 +73,7 @@
 	}
 
 	.hero__head {
-		font-size: 2rem;
+		font-size: 2.5rem;
 		color: var(--color1);
 	}
 
@@ -97,7 +97,7 @@
 	.latest-post__details {
 		padding: 1.5rem;
 		display: grid;
-		gap: 0.5rem;
+		gap: 1rem;
 	}
 
 	.latest-post__details .tag {
@@ -111,6 +111,12 @@
 
 	.latest-post__smalldesc {
 		color: rgb(241, 241, 241);
+	}
+
+	.date-di {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
 	}
 
 	.latest-post__details .date {

@@ -5,21 +5,13 @@
 			:modalMessage="modalMessage"
 			@close-modal="closeModal"
 		/>
-		<div class="container">
+		<div class="profile__wrapper">
 			<h2>Account Settings</h2>
 			<div class="profile-info">
-				<div class="initials">{{ $store.state.profileInitials }}</div>
+				<div class="initials">{{ userStore.profileInitials }}</div>
 				<div class="admin-badge">
 					<Icon icon="ri:admin-line" color="white" width="30" />
 					<span>admin</span>
-				</div>
-				<div class="input">
-					<label for="firstName">First Name:</label>
-					<input type="text" id="firstName" v-model="firstName" />
-				</div>
-				<div class="input">
-					<label for="lastName">Last Name:</label>
-					<input type="text" id="lastName" v-model="lastName" />
 				</div>
 				<div class="input">
 					<label for="username">Username:</label>
@@ -29,7 +21,7 @@
 					<label for="email">Email:</label>
 					<input disabled type="text" id="email" v-model="email" />
 				</div>
-				<button @click="updateProfile">Save Changes</button>
+				<BaseButton @click="updateProfile">Save Changes</BaseButton>
 			</div>
 		</div>
 	</div>
@@ -39,63 +31,48 @@
 	import { ref, computed } from "vue";
 	import BaseModal from "@/components/ui/BaseModal.vue";
 	import { Icon } from "@iconify/vue";
+	import { useUserStore } from "@/store/user";
 
-	// const store = useStore();
+	const userStore = useUserStore();
 
 	const modalMessage = ref("Changes were saved");
 	const modalActive = ref(null);
-
-	// const firstName = ref("");
-	// const lastName = ref("");
-	// const username = ref("");
-	// const email = ref("");
 
 	const closeModal = () => {
 		modalActive.value = !modalActive.value;
 	};
 
-	const firstName = computed({
-		get() {
-			return store.state.profileFirstName;
-		},
-		set(payload) {
-			store.commit("changeFirstName", payload);
-		},
-	});
-
-	const lastName = computed({
-		get() {
-			return store.state.profileLastName;
-		},
-		set(payload) {
-			store.commit("changeLastName", payload);
-		},
-	});
-
 	const username = computed({
 		get() {
-			return store.state.profileUsername;
+			return userStore.profileUsername;
 		},
-		set(payload) {
-			store.commit("changeUsername", payload);
+		set(newValue) {
+			userStore.updateUsername(newValue);
 		},
 	});
 
 	const email = computed(() => {
-		return store.state.profileEmail;
+		return userStore.profileEmail;
 	});
 
-	const updateProfile = () => {
-		store.dispatch("updatedUserSettings");
-		modalActive.value = !modalActive.value;
+	const updateProfile = async () => {
+		try {
+			await userStore.updateUsersettings();
+			modalMessage.value = "Changes were saved successfully!";
+		} catch (error) {
+			modalMessage.value = "Failed to save changes. Please try again.";
+			console.error("Error updating profile:", error);
+		} finally {
+			modalActive.value = true;
+		}
 	};
 </script>
 
 <style lang="scss" scoped>
 	.profile {
-		.container {
+		&__wrapper {
 			max-width: 1000px;
-			padding: 60px 25px;
+			padding: 4rem 1.5rem;
 
 			h2 {
 				text-align: center;
