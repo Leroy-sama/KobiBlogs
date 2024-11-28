@@ -39,7 +39,7 @@
 		padding: 0.75rem 1.5rem;
 		position: relative;
 		z-index: 1;
-		width: 100%;
+		/* width: 100%; */
 	}
 
 	button::after,
