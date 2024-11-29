@@ -12,28 +12,10 @@
 				</div>
 			</div>
 			<div class="posts">
-				<div class="latest-post">
-					<img src="@/assets/img/latest_post.webp" alt="" />
-					<div class="latest-post__details">
-						<div class="span-box">
-							<span class="tag">AI</span>
-						</div>
-						<h2 class="latest-post__title">
-							Innovative AI Applications in the Real World
-						</h2>
-						<p class="latest-post__smalldesc">
-							Discover how AI can help businesses improve their
-							customer experience and drive more sales.
-						</p>
-						<div class="date-di">
-							<Date />
-							<span class="date">Jul 4, 2024</span>
-						</div>
-					</div>
-				</div>
+				<LatestPost />
 				<div class="otherposts">
 					<BlogItem
-						v-for="blog in blogStore.blogs.slice(0, 3)"
+						v-for="blog in blogStore.blogs.slice(1, 4)"
 						:key="blog.id"
 						:category="blog.category"
 						:blogCoverPhoto="blog.blogCoverPhoto"
@@ -52,7 +34,7 @@
 
 <script setup>
 	import BlogItem from "../components/items/BlogItem.vue";
-	import Date from "@/assets/icons/Date.vue";
+	import LatestPost from "@/components/ui/LatestPost.vue";
 	import { useBlogStore } from "@/store/blogs";
 
 	const blogStore = useBlogStore();
@@ -90,40 +72,6 @@
 
 	/* POSTS */
 
-	.latest-post {
-		background-color: rgb(6, 2, 19);
-	}
-
-	.latest-post__details {
-		padding: 1.5rem;
-		display: grid;
-		gap: 1rem;
-	}
-
-	.latest-post__details .tag {
-		background-color: wheat;
-		padding: 0.5rem;
-	}
-
-	.latest-post__title {
-		color: white;
-	}
-
-	.latest-post__smalldesc {
-		color: rgb(241, 241, 241);
-	}
-
-	.date-di {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-	}
-
-	.latest-post__details .date {
-		color: rgb(238, 238, 238);
-		font-size: 0.8rem;
-	}
-
 	.otherposts {
 		margin: 1.5rem 0;
 		display: grid;
@@ -137,62 +85,11 @@
 		justify-content: center; */
 	}
 
-	/* .btn a {
-		cursor: pointer;
-		border: 0;
-		background: var(--color2);
-		color: #fff;
-		padding: 0.75em 1.5em;
-		text-decoration: none;
-		position: relative;
-		z-index: 1;
-	}
-
-	.btn a::after {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background: rgba(0, 0, 0, 0.5);
-
-		z-index: -1;
-		transition: transform 300ms ease-in;
-	}
-
-	.btn a::after {
-		transform: scaleX(0);
-		transform-origin: right;
-	}
-
-	.btn a:hover::after {
-		transform: scaleX(1);
-		transform-origin: left;
-	} */
-
 	@media (min-width: 700px) {
 	}
 
 	@media (min-width: 1000px) {
 		.hero__head {
-			font-size: 2.5rem;
-		}
-
-		.latest-post {
-			display: flex;
-		}
-
-		.latest-post img {
-			max-width: 700px;
-		}
-
-		.latest-post__details {
-			display: flex;
-			flex-direction: column;
-		}
-
-		.latest-post__title {
 			font-size: 2.5rem;
 		}
 	}

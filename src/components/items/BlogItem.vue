@@ -2,7 +2,9 @@
 	<div class="post">
 		<div class="post-img">
 			<span class="tag">{{ category }}</span>
-			<img :src="blogCoverPhoto" alt="" />
+			<RouterLink to="/blogs/1"
+				><img :src="blogCoverPhoto" alt=""
+			/></RouterLink>
 		</div>
 		<div class="post__details">
 			<RouterLink to="/blogs/1" class="post__link">
