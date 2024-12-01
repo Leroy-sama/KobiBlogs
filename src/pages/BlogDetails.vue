@@ -1,46 +1,35 @@
-<script setup lang="ts">
-	import Date from "@/assets/icons/Date.vue";
-	import User from "@/assets/icons/User.vue";
-</script>
-
 <template>
-	<section class="blog">
+	<section class="blog" v-if="selectedBlog">
 		<div class="blog__wrapper">
 			<div class="blog__header">
 				<h1 class="blog__head">
-					Cable management made easy: The smart solution for organized
-					cables
+					{{ blogTitle }}
 				</h1>
 				<div class="blog__info">
 					<div class="info-date">
 						<Date />
-						<span class="date">Aug 2, 2023</span>
+						<span class="date">{{ blogDate }}</span>
 					</div>
 					<div class="info-person">
 						<User />
-						<span class="person">By Leroy Mokobi</span>
+						<span class="person">{{
+							userStore.profileUsername
+						}}</span>
 					</div>
 				</div>
 			</div>
 			<div class="blog__body">
-				<img src="@/assets/img/cable management.jpg" alt="" />
+				<img :src="blogCoverPhoto" :alt="blogTitle" />
 
-				<h2 class="sect__head">The challenges of a modern workspace</h2>
+				<h2 class="sect__head">{{ blogTitle }}</h2>
 				<p class="sect__text">
-					Laptop, monitors, computer, keyboard, mouse and chargers -
-					at a well-equipped workplace in the office or home office,
-					the number of electronic devices seems nearly infinite. And
-					if they're not connected via Bluetooth, they're all
-					connected by one thing: a cable. Or in some cases, several.
-					Thanks to HDMI, network and USB, the number of cables
-					quickly adds up. Keeping control of so many cables and
-					avoiding cable chaos can often be a challenge.
+					{{ blogDesc }}
 				</p>
 			</div>
 			<div class="author">
 				<div class="author__text">
 					<span>Author</span>
-					<p>Leroy Mokobi</p>
+					<p>{{ userStore.profileUsername }}</p>
 				</div>
 				<div class="author__img">
 					<img
@@ -51,7 +40,42 @@
 			</div>
 		</div>
 	</section>
+	<section v-else>
+		<h1>Nothing to be found here</h1>
+		<p>{{ id }}</p>
+	</section>
 </template>
+
+<script lang="js" setup>
+	import Date from '../assets/icons/Date.vue';
+	import User from "../assets/icons/User.vue"
+	import { useRoute } from 'vue-router';
+	import { ref,onMounted, computed } from 'vue';
+	import { useUserStore } from '@/store/user';
+	import { useBlogStore } from '@/store/blogs';
+
+	const blogStore = useBlogStore();
+	const userStore = useUserStore();
+	const route = useRoute();
+
+	const selectedBlog = ref(null)
+	const id = route.params.id;
+	console.log(id)
+
+	const blogTitle = computed(() => selectedBlog.value.blogTitle)
+	const blogDate = computed(() => selectedBlog.value.blogDate)
+	const blogDesc = computed(() => selectedBlog.value.blogDesc)
+	const blogCoverPhoto = computed(() => selectedBlog.value.blogCoverPhoto)
+
+	onMounted(() => {
+		const blogs = blogStore.blogs
+		selectedBlog.value = blogs.find((blog) => {
+			return blog.id === id
+		})
+
+		console.log(selectedBlog.value)
+	})
+</script>
 
 <style lang="css" scoped>
 	.blog__wrapper {
@@ -62,6 +86,7 @@
 	.blog__head {
 		text-align: center;
 		padding: 1rem;
+		font-size: 3rem;
 	}
 
 	.blog__info {

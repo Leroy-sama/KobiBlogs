@@ -8,4 +8,12 @@ export const useCreateblogStore = defineStore("createblogStore", {
 		blogPhotoFileURL: null,
 		blogPhotoPreview: null,
 	}),
+	actions: {
+		updateTitle(newTitle) {
+			this.blogTitle = newTitle;
+		},
+		updateHTML(newHTML) {
+			this.blogHTML = newHTML;
+		},
+	},
 });

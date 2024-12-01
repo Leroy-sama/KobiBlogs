@@ -17,6 +17,7 @@
 					<BlogItem
 						v-for="blog in blogStore.blogs.slice(1, 4)"
 						:key="blog.id"
+						:id="blog.id"
 						:category="blog.category"
 						:blogCoverPhoto="blog.blogCoverPhoto"
 						:blogTitle="blog.blogTitle"

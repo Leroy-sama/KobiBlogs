@@ -20,6 +20,7 @@
 						ref="blogPhoto"
 						id="blogphoto"
 						accept=".png, .jpg, .jpeg, .webp"
+						@change="fileChange"
 					/>
 					<BaseButton class="prev">Preview Photo</BaseButton>
 					<span
@@ -29,7 +30,7 @@
 			</div>
 			<div class="editor">
 				<Editor
-					v-model="value"
+					v-model="blogHTML"
 					editorStyle="height: 720px"
 					class="editor-edit"
 				/>
@@ -43,16 +44,54 @@
 </template>
 
 <script setup>
-	import { ref } from "vue";
+	import { ref, computed } from "vue";
 	import Editor from "primevue/editor";
 	import { useCreateblogStore } from "@/store/create-blog";
+	import { useUserStore } from "@/store/user";
 	import BaseButton from "@/components/ui/BaseButton.vue";
 
+	const userStore = useUserStore();
 	const createblogStore = useCreateblogStore();
 	const value = ref("");
 	const blogTitle = ref("");
 	const error = ref(null);
 	const errorMsg = ref(null);
+	const file = ref(null);
+	const blogPhoto = ref(null);
+
+	const profileId = computed(() => {
+		return userStore.profileId;
+	});
+
+	const blogPhotoName = computed(() => {
+		return createblogStore.blogPhotoName;
+	});
+
+	const blogTitlestore = computed({
+		get() {
+			return createblogStore.blogTitle;
+		},
+		set(newValue) {
+			createblogStore.updateTitle(newValue);
+		},
+	});
+
+	const blogHTML = computed({
+		get() {
+			return createblogStore.blogHTML;
+		},
+		set(newValue) {
+			createblogStore.updateHTML(newValue);
+		},
+	});
+
+	const fileChange = () => {
+		const files = blogPhoto.value.files;
+		if (files && files.length > 0) {
+			file.value = files[0];
+			console.log(`Selected file: ${file.value.name}`);
+		}
+	};
 
 	// console.log(value);
 </script>
@@ -80,9 +119,10 @@
 	}
 
 	.blog-info {
-		display: flex;
-		align-items: center;
-		gap: 2rem;
+		display: grid;
+		grid-template-columns: 40% 60%;
+		gap: 1.5rem;
+		padding-block: 2rem;
 	}
 
 	.file-upload {
@@ -95,6 +135,7 @@
 		padding: 0.75rem 1.5rem;
 		outline: none;
 		font: inherit;
+		/* max-width: 600px; */
 	}
 
 	label {

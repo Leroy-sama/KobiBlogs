@@ -11,7 +11,7 @@ export const useBlogStore = defineStore("blogStore", {
 	state: () => ({
 		blogs: [
 			{
-				id: "b01",
+				id: "1",
 				category: "Apple",
 				blogTitle: "New Apple watch Holder",
 				blogCoverPhoto: blogImage1,
@@ -20,7 +20,7 @@ export const useBlogStore = defineStore("blogStore", {
 					"Introducing the new Apple Watch Holder, a sleek and stylish solution for those looking to upgrade their fitness devices.",
 			},
 			{
-				id: "b02",
+				id: "2",
 				category: "web",
 				blogTitle: "Are you still using HTML and CSS",
 				blogCoverPhoto: blogImage2,
@@ -29,7 +29,7 @@ export const useBlogStore = defineStore("blogStore", {
 					"With the introduction of more and more web frameworks, is HTML and CSS still being used?",
 			},
 			{
-				id: "b03",
+				id: "3",
 				category: "ML",
 				blogTitle: "Machine Learning indepth",
 				blogCoverPhoto: blogImage3,
@@ -38,7 +38,7 @@ export const useBlogStore = defineStore("blogStore", {
 					"Learn how you can get started in machine learning and break into the competitive ML scene",
 			},
 			{
-				id: "b04",
+				id: "4",
 				category: "AI",
 				blogTitle: "Innovative AI Applications in the Real World",
 				blogCoverPhoto: blogImage4,
@@ -47,7 +47,7 @@ export const useBlogStore = defineStore("blogStore", {
 					"Discover how AI can help businesses improve their customer experience and drive more sales.",
 			},
 			{
-				id: "b05",
+				id: "5",
 				category: "web",
 				blogTitle: "Nodejs vs django for backend",
 				blogCoverPhoto: blogImage5,
@@ -56,16 +56,16 @@ export const useBlogStore = defineStore("blogStore", {
 					"We take a deep dive in Nodejs and django to look at the pros and cons of using either.",
 			},
 			{
-				id: "b06",
+				id: "6",
 				category: "Web",
-				blogTitle: "A look at wordpress and uses",
+				blogTitle: "A look at wordpress and its uses",
 				blogCoverPhoto: blogImage6,
 				blogDate: "July 30, 2024",
 				blogDesc:
 					"Wordpress blog description for the latest version of Wordpress (http://wordpress.org).",
 			},
 			{
-				id: "b07",
+				id: "7",
 				category: "ML",
 				blogTitle: "The New Magsafe",
 				blogCoverPhoto: blogImage7,

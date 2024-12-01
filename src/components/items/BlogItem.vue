@@ -2,12 +2,12 @@
 	<div class="post">
 		<div class="post-img">
 			<span class="tag">{{ category }}</span>
-			<RouterLink to="/blogs/1"
+			<RouterLink :to="`/blogs/${id}`"
 				><img :src="blogCoverPhoto" alt=""
 			/></RouterLink>
 		</div>
 		<div class="post__details">
-			<RouterLink to="/blogs/1" class="post__link">
+			<RouterLink :to="`/blogs/${id}`" class="post__link">
 				<h2 class="post__head">{{ blogTitle }}</h2>
 			</RouterLink>
 			<p class="post__desc">

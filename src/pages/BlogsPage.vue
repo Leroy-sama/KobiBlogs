@@ -6,6 +6,7 @@
 				<BlogItem
 					v-for="blog in blogStore.blogs"
 					:key="blog.id"
+					:id="blog.id"
 					:category="blog.category"
 					:blogCoverPhoto="blog.blogCoverPhoto"
 					:blogTitle="blog.blogTitle"
