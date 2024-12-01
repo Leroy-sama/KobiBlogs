@@ -15,5 +15,14 @@ export const useCreateblogStore = defineStore("createblogStore", {
 		updateHTML(newHTML) {
 			this.blogHTML = newHTML;
 		},
+		fileNameChange(newFileName) {
+			this.blogPhotoName = newFileName;
+		},
+		createFileURL(URL) {
+			this.blogPhotoFileURL = URL;
+		},
+		openPhotoPreview() {
+			this.blogPhotoPreview = !this.blogPhotoPreview;
+		},
 	},
 });

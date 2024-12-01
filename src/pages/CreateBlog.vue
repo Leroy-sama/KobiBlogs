@@ -1,5 +1,7 @@
 <template>
 	<section class="create">
+		<CoverPreview v-if="createblogStore.blogPhotoPreview" />
+		<p v-if="error">{{ errorMsg }}</p>
 		<div class="create__wrapper">
 			<h1 class="container__head">Create Blog</h1>
 			<p class="container__text">
@@ -11,7 +13,7 @@
 					type="text"
 					id="blog-title"
 					placeholder="Enter blog title"
-					v-model="blogTitle"
+					v-model="blogTitlestore"
 				/>
 				<div class="file-upload">
 					<label for="blogphoto">Upload Cover Photo</label>
@@ -22,7 +24,9 @@
 						accept=".png, .jpg, .jpeg, .webp"
 						@change="fileChange"
 					/>
-					<BaseButton class="prev">Preview Photo</BaseButton>
+					<BaseButton class="prev" @click="openPreview"
+						>Preview Photo</BaseButton
+					>
 					<span
 						>File Chosen: {{ createblogStore.blogPhotoName }}</span
 					>
@@ -36,7 +40,7 @@
 				/>
 			</div>
 			<div class="blog-actions">
-				<BaseButton>Publish Blog</BaseButton>
+				<BaseButton @click="uploadBlog">Publish Blog</BaseButton>
 				<BaseButton link to="/blog-preview">Blog Preview</BaseButton>
 			</div>
 		</div>
@@ -44,11 +48,12 @@
 </template>
 
 <script setup>
-	import { ref, computed } from "vue";
+	import { ref, computed, onUnmounted } from "vue";
 	import Editor from "primevue/editor";
 	import { useCreateblogStore } from "@/store/create-blog";
 	import { useUserStore } from "@/store/user";
 	import BaseButton from "@/components/ui/BaseButton.vue";
+	import CoverPreview from "@/components/ui/CoverPreview.vue";
 
 	const userStore = useUserStore();
 	const createblogStore = useCreateblogStore();
@@ -58,6 +63,10 @@
 	const errorMsg = ref(null);
 	const file = ref(null);
 	const blogPhoto = ref(null);
+
+	const openPreview = () => {
+		createblogStore.openPhotoPreview();
+	};
 
 	const profileId = computed(() => {
 		return userStore.profileId;
@@ -85,15 +94,37 @@
 		},
 	});
 
+	const fileURL = ref("");
+
 	const fileChange = () => {
-		const files = blogPhoto.value.files;
-		if (files && files.length > 0) {
-			file.value = files[0];
-			console.log(`Selected file: ${file.value.name}`);
+		const files = blogPhoto.value?.files;
+		if (!files || files.length === 0) {
+			console.error("No file selected");
+			return;
 		}
+
+		if (fileURL.value) URL.revokeObjectURL(fileURL.value);
+
+		file.value = files[0];
+		fileURL.value = URL.createObjectURL(file.value);
+
+		console.log(`Selected file: ${file.value.name}`);
+		console.log(`Generated file URL: ${fileURL.value}`);
+
+		createblogStore.fileNameChange(file.value.name);
+		createblogStore.createFileURL(fileURL.value);
+
+		// Verify if store updates correctly
+		console.log("Store state:", createblogStore.$state);
 	};
 
-	// console.log(value);
+	onUnmounted(() => {
+		if (fileURL.value) URL.revokeObjectURL(fileURL.value); // Cleanup on unmount
+	});
+
+	const uploadBlog = () => {
+		console.log("Uploading....");
+	};
 </script>
 
 <style lang="css" scoped>
@@ -126,7 +157,8 @@
 	}
 
 	.file-upload {
-		display: flex;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
 		gap: 1.5rem;
 		align-items: center;
 	}

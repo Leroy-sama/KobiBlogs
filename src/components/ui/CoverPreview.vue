@@ -14,17 +14,17 @@
 
 <script setup>
 	import { computed } from "vue";
-	// import { useStore } from "vuex";
+	import { useCreateblogStore } from "@/store/create-blog";
 	import { Icon } from "@iconify/vue";
 
-	const store = useStore();
+	const createblogStore = useCreateblogStore();
 
 	const closePreview = () => {
-		store.commit("openPhotoPreview");
+		createblogStore.openPhotoPreview();
 	};
 
 	const blogCoverPhoto = computed(() => {
-		return store.state.blogPhotoFileURL;
+		return createblogStore.blogPhotoFileURL;
 	});
 </script>
 
@@ -32,7 +32,7 @@
 	.modal {
 		top: 0;
 		background-color: rgba(0, 0, 0, 0.5);
-		z-index: 99;
+		z-index: 9999;
 		position: fixed;
 		display: flex;
 		justify-content: center;

@@ -1,29 +1,29 @@
 <template>
-	<!-- <div class="blog-view">
-		<div class="container quillWrapper">
+	<div class="blog-view">
+		<div class="container">
 			<h2>{{ blogTitle }}</h2>
-			<img :src="blogCoverPhoto" alt="" />
-			<div class="blog-content ql-editor" v-html="blogHTML"></div>
+			<img :src="blogCoverPhoto" :alt="blogCoverPhoto" />
+			<div class="blog-content" v-html="blogHTML"></div>
 		</div>
-	</div> -->
+	</div>
 </template>
 
 <script setup>
-	// import { computed } from "vue";
-	// // import { useStore } from "vuex";
+	import { computed } from "vue";
+	import { useCreateblogStore } from "@/store/create-blog";
 
-	// const store = useStore();
-	// const blogTitle = computed(() => {
-	// 	return store.state.blogTitle;
-	// });
+	const createblogStore = useCreateblogStore();
+	const blogTitle = computed(() => {
+		return createblogStore.blogTitle;
+	});
 
-	// const blogHTML = computed(() => {
-	// 	return store.state.blogHTML;
-	// });
+	const blogHTML = computed(() => {
+		return createblogStore.blogHTML;
+	});
 
-	// const blogCoverPhoto = computed(() => {
-	// 	return store.state.blogPhotoFileURL;
-	// });
+	const blogCoverPhoto = computed(() => {
+		return createblogStore.blogPhotoFileURL;
+	});
 </script>
 
 <style lang="scss" scoped>
@@ -31,8 +31,8 @@
 		min-height: 100%;
 
 		.container {
-			max-width: 100px;
-			padding: 60px 25px;
+			width: min(90%, 80rem);
+			margin-inline: auto;
 		}
 
 		.ql-editor {
