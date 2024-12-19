@@ -2,6 +2,14 @@
 	<section class="login">
 		<div class="login__wrapper">
 			<h1 class="login__head">Login</h1>
+
+			<div class="socials">
+				<div class="google">
+					<Google />
+					<p>Continue with Google</p>
+				</div>
+			</div>
+			<OrItem />
 			<p class="login__text">
 				Enter your account details to login to your account
 			</p>
@@ -73,6 +81,9 @@
 	import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 	import { firebaseApp } from "@/firebase/firebaseInit.js";
 	import { RouterLink, useRouter } from "vue-router";
+
+	import Google from "@/assets/icons/Google.vue";
+	import OrItem from "@/components/items/OrItem.vue";
 
 	const router = useRouter();
 
@@ -151,6 +162,15 @@
 
 	.login__head {
 		font-size: 2.5rem;
+	}
+
+	.google {
+		display: flex;
+		gap: 1.5rem;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid var(--color2);
+		padding: 0.5rem;
 	}
 
 	form {

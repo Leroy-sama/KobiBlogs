@@ -1,7 +1,7 @@
 <template>
 	<section class="create">
 		<CoverPreview v-if="createblogStore.blogPhotoPreview" />
-		<p v-if="error">{{ errorMsg }}</p>
+
 		<div class="create__wrapper">
 			<h1 class="container__head">Create Blog</h1>
 			<p class="container__text">
@@ -22,7 +22,7 @@
 						ref="blogPhoto"
 						id="blogphoto"
 						accept=".png, .jpg, .jpeg, .webp"
-						@change="fileChange"
+						@change="fileChange2"
 					/>
 					<BaseButton class="prev" @click="openPreview"
 						>Preview Photo</BaseButton
@@ -39,6 +39,7 @@
 					class="editor-edit"
 				/>
 			</div>
+			<p v-if="error" style="color: red">{{ errorMsg }}</p>
 			<div class="blog-actions">
 				<BaseButton @click="uploadBlog">Publish Blog</BaseButton>
 				<BaseButton link to="/blog-preview">Blog Preview</BaseButton>
@@ -57,8 +58,6 @@
 
 	const userStore = useUserStore();
 	const createblogStore = useCreateblogStore();
-	const value = ref("");
-	const blogTitle = ref("");
 	const error = ref(null);
 	const errorMsg = ref(null);
 	const file = ref(null);
@@ -96,34 +95,54 @@
 
 	const fileURL = ref("");
 
-	const fileChange = () => {
-		const files = blogPhoto.value?.files;
-		if (!files || files.length === 0) {
-			console.error("No file selected");
-			return;
-		}
+	// const fileChange = () => {
+	// 	const files = blogPhoto.value?.files;
+	// 	if (!files || files.length === 0) {
+	// 		console.error("No file selected");
+	// 		return;
+	// 	}
 
-		if (fileURL.value) URL.revokeObjectURL(fileURL.value);
+	// 	if (fileURL.value) URL.revokeObjectURL(fileURL.value);
 
-		file.value = files[0];
+	// 	file.value = files[0];
+	// 	fileURL.value = URL.createObjectURL(file.value);
+
+	// 	console.log(`Selected file: ${file.value.name}`);
+	// 	console.log(`Generated file URL: ${fileURL.value}`);
+
+	// 	createblogStore.fileNameChange(file.value.name);
+	// 	createblogStore.createFileURL(fileURL.value);
+
+	// 	// Verify if store updates correctly
+	// 	console.log("Store state:", createblogStore.$state);
+	// };
+
+	const fileChange2 = (event) => {
+		file.value = event.target.files[0];
+		console.log(file.value);
+		const fileName = file.value.name;
+		console.log(fileName);
+		createblogStore.fileNameChange(fileName);
 		fileURL.value = URL.createObjectURL(file.value);
-
-		console.log(`Selected file: ${file.value.name}`);
-		console.log(`Generated file URL: ${fileURL.value}`);
-
-		createblogStore.fileNameChange(file.value.name);
 		createblogStore.createFileURL(fileURL.value);
-
-		// Verify if store updates correctly
-		console.log("Store state:", createblogStore.$state);
 	};
 
-	onUnmounted(() => {
-		if (fileURL.value) URL.revokeObjectURL(fileURL.value); // Cleanup on unmount
-	});
+	// onUnmounted(() => {
+	// 	if (fileURL.value) URL.revokeObjectURL(fileURL.value); // Cleanup on unmount
+	// });
 
 	const uploadBlog = () => {
-		console.log("Uploading....");
+		console.log("Clicked");
+		if (blogTitlestore.value === "" && blogHTML.value === "") {
+			error.value = true;
+			errorMsg.value = "Please enter a blog title and blog HTML";
+			setTimeout(() => {
+				error.value = false;
+			}, 5000);
+		} else {
+			error.value = false;
+			console.log(blogTitlestore.value);
+		}
 	};
 </script>
 
@@ -145,7 +164,7 @@
 
 	.editor-edit {
 		border: 1px solid var(--colorBlack);
-		margin-block: 2rem;
+		/* margin-top: 2rem; */
 		border-radius: 10px;
 	}
 

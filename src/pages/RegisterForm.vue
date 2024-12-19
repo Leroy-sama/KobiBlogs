@@ -2,6 +2,14 @@
 	<section class="register">
 		<div class="register__wrapper">
 			<h1 class="register__head">Sign Up</h1>
+
+			<div class="socials">
+				<div class="google">
+					<Google />
+					<p>Continue with Google</p>
+				</div>
+			</div>
+			<OrItem />
 			<p class="register__text">
 				Enter your details to create an account
 			</p>
@@ -77,6 +85,9 @@
 	import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 	import { firebaseApp } from "@/firebase/firebaseInit.js";
 	import { useRouter } from "vue-router";
+
+	import Google from "@/assets/icons/Google.vue";
+	import OrItem from "@/components/items/OrItem.vue";
 
 	const router = useRouter();
 
@@ -181,10 +192,19 @@
 		font-size: 2.5rem;
 	}
 
+	.google {
+		display: flex;
+		gap: 1.5rem;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid var(--color2);
+		padding: 0.5rem;
+	}
+
 	form {
 		display: grid;
 		gap: 1rem;
-		padding-block: 2rem;
+		padding-block: 1rem;
 		/* margin-inline: auto; */
 	}
 
