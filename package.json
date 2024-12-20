@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "firebase": "^10.7.1",
+    "firebase": "^11.1.0",
     "lexical-vue": "^0.9.0",
     "pinia": "^2.2.0",
     "primevue": "^4.2.2",
