@@ -77,7 +77,7 @@ const routes = [
 		},
 	},
 	{
-		path: "/view-blog",
+		path: "/view-blog/:id",
 		component: () => import("../pages/ViewBlog.vue"),
 		meta: {
 			title: "View Blog",

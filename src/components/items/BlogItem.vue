@@ -1,13 +1,13 @@
 <template>
 	<div class="post">
 		<div class="post-img">
-			<span class="tag">{{ category }}</span>
-			<RouterLink :to="`/blogs/${id}`"
+			<!-- <span class="tag">{{ category }}</span> -->
+			<RouterLink :to="`/view-blog/${blogID}`"
 				><img :src="blogCoverPhoto" alt=""
 			/></RouterLink>
 		</div>
 		<div class="post__details">
-			<RouterLink :to="`/blogs/${id}`" class="post__link">
+			<RouterLink :to="`/view-blog/${blogID}`" class="post__link">
 				<h2 class="post__head">{{ blogTitle }}</h2>
 			</RouterLink>
 			<div class="post__desc" v-html="truncatedHtml"></div>
@@ -24,8 +24,7 @@
 	import IconDate from "@/assets/icons/IconDate.vue";
 
 	const props = defineProps([
-		"id",
-		"category",
+		"blogID",
 		"blogTitle",
 		"blogCoverPhoto",
 		"blogDate",

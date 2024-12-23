@@ -5,8 +5,8 @@
 			<div class="blogs__blogs">
 				<BlogItem
 					v-for="blog in firebasePosts.blogPosts"
-					:key="blog.id"
-					:id="blog.id"
+					:key="blog?.blogID"
+					:blogID="blog?.blogID"
 					:blogCoverPhoto="blog.blogCoverPhoto"
 					:blogTitle="blog.blogTitle"
 					:blogDesc="blog.blogHTML"
@@ -18,11 +18,9 @@
 </template>
 
 <script setup>
-	import { useBlogStore } from "@/store/blogs";
 	import { useFirebasePosts } from "@/store/firebasePosts";
 	import BlogItem from "@/components/items/BlogItem.vue";
 
-	const blogStore = useBlogStore();
 	const firebasePosts = useFirebasePosts();
 </script>
 
