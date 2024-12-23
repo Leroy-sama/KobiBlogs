@@ -7,9 +7,11 @@
 	import { firebaseApp } from "./firebase/firebaseInit";
 	import { onMounted } from "vue";
 	import { useUserStore } from "./store/user";
+	import { useFirebasePosts } from "./store/firebasePosts";
 
 	onMounted(() => {
 		const userStore = useUserStore();
+		const firebasePosts = useFirebasePosts();
 		const auth = getAuth(firebaseApp);
 		onAuthStateChanged(auth, (user) => {
 			userStore.updateUser(user);
@@ -17,11 +19,11 @@
 				userStore.getCurrentUser();
 				const uid = user.uid;
 				console.log(uid);
-				console.log(userStore.profileEmail);
 			} else {
 				console.log("No active user");
 			}
 		});
+		firebasePosts.getPost();
 	});
 </script>
 
