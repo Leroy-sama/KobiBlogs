@@ -1,13 +1,19 @@
 <template>
 	<main>
 		<section class="notfound">
-			<img src="@/assets/img/notfound.jpg" alt="" class="notfound__img" />
-			<h2 class="notfound__head">Page not found</h2>
-			<p class="notfound__text">
-				This page could not be found. Why are you here?
-			</p>
-			<div class="btn">
-				<RouterLink to="/">Back to homepage</RouterLink>
+			<div class="wrapper">
+				<img
+					src="@/assets/img/notfound.jpg"
+					alt=""
+					class="notfound__img"
+				/>
+				<h2 class="notfound__head">Page not found</h2>
+				<p class="notfound__text">
+					This page could not be found. Why are you here?
+				</p>
+				<div class="btn">
+					<RouterLink to="/">Back to homepage</RouterLink>
+				</div>
 			</div>
 		</section>
 	</main>

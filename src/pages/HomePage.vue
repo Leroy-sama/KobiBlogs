@@ -1,6 +1,6 @@
 <template>
 	<section class="home">
-		<div class="home__wrapper">
+		<div class="wrapper">
 			<div class="hero">
 				<div class="hero__text">
 					<h1 class="hero__head">Welcome</h1>
@@ -43,11 +43,6 @@
 <style lang="css" scoped>
 	img {
 		width: 100%;
-	}
-
-	.home__wrapper {
-		width: min(90%, 80rem);
-		margin: 0 auto;
 	}
 
 	.hero {

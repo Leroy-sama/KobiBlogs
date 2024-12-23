@@ -46,7 +46,7 @@
 	});
 </script>
 
-<style scoped>
+<style lang="css" scoped>
 	.post-img {
 		position: relative;
 	}

@@ -1,6 +1,6 @@
 <template>
 	<section class="blogs">
-		<div class="blogs__wrapper">
+		<div class="wrapper">
 			<h2 class="blogs__heading">All Posts</h2>
 			<div class="blogs__blogs">
 				<BlogItem
@@ -25,11 +25,6 @@
 </script>
 
 <style scoped lang="css">
-	.blogs__wrapper {
-		width: min(90%, 80rem);
-		margin-inline: auto;
-	}
-
 	.blogs__blogs {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));

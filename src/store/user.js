@@ -44,7 +44,6 @@ export const useUserStore = defineStore("userStore", {
 			const auth = getAuth(firebaseApp);
 			const database = doc(db, "users", auth.currentUser.uid);
 			const dbResults = await getDoc(database);
-			console.log(dbResults);
 			this.profileId = dbResults.id;
 			this.profileEmail = dbResults.data().email;
 			this.profileUsername = dbResults.data().username;

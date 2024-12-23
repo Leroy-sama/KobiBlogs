@@ -82,6 +82,11 @@
 		width: 100%;
 	}
 
+	.wrapper {
+		width: min(90%, 90rem);
+		margin-inline: auto;
+	}
+
 	/* .post__view {
 		text-decoration: none;
 		color: #eb1616;

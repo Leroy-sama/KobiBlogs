@@ -1,7 +1,7 @@
 <template>
 	<section class="create">
 		<CoverPreview v-if="createblogStore.blogPhotoPreview" />
-
+		<LoadingSpinner v-show="loading" />
 		<div class="create__wrapper">
 			<h1 class="container__head">Create Blog</h1>
 			<p class="container__text">
@@ -43,7 +43,6 @@
 			<div class="blog-actions">
 				<BaseButton @click="uploadBlog">Publish Blog</BaseButton>
 				<BaseButton link to="/blog-preview">Blog Preview</BaseButton>
-				<BaseButton @click="uploadPhoto">Upload Cover Photo</BaseButton>
 			</div>
 		</div>
 	</section>
@@ -57,7 +56,12 @@
 		uploadBytes,
 		ref as storageRef,
 	} from "firebase/storage";
-	import { getFirestore, collection, addDoc } from "firebase/firestore";
+	import {
+		getFirestore,
+		collection,
+		addDoc,
+		serverTimestamp,
+	} from "firebase/firestore";
 	import { ref as VueRef, computed } from "vue";
 	import Editor from "primevue/editor";
 	import { useCreateblogStore } from "@/store/create-blog";
@@ -65,6 +69,7 @@
 	import { useRouter } from "vue-router";
 	import BaseButton from "@/components/ui/BaseButton.vue";
 	import CoverPreview from "@/components/ui/CoverPreview.vue";
+	import LoadingSpinner from "@/components/ui/LoadingSpinner.vue";
 
 	const router = useRouter();
 	const userStore = useUserStore();
@@ -75,6 +80,7 @@
 	const blogPhoto = VueRef(null);
 	const storage = getStorage(firebaseApp);
 	const db = getFirestore(firebaseApp);
+	const loading = VueRef(null);
 
 	const openPreview = () => {
 		createblogStore.openPhotoPreview();
@@ -138,6 +144,7 @@
 		}
 
 		try {
+			loading.value = true;
 			const storageReference = storageRef(
 				storage,
 				`documents/BlogCoverPhotos/${createblogStore.blogPhotoName}`
@@ -153,7 +160,7 @@
 			const databaseRef = collection(db, "blogPosts");
 
 			await addDoc(databaseRef, {
-				blogID: createblogStore.blogPhotoName, // Unique ID
+				blogID: databaseRef.id,
 				blogHTML: blogHTML.value,
 				blogCoverPhoto: downLoadURL,
 				blogPhotoName: blogPhotoName.value,
@@ -161,9 +168,10 @@
 				profileId: profileId.value,
 				date: timestamp,
 			});
-
+			loading.value = false;
 			router.push("/view-blog");
 		} catch (err) {
+			loading.value = false;
 			console.error("Error during blog upload:", err);
 			error.value = true;
 			errorMsg.value = "An error occurred while uploading the blog.";
