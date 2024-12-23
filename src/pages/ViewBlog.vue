@@ -39,7 +39,7 @@
 	});
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
 	.blogview {
 		min-height: 100vh;
 	}

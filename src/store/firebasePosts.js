@@ -32,7 +32,6 @@ export const useFirebasePosts = defineStore("firebasePosts", {
 					this.blogPosts.push(data);
 				});
 				this.postLoaded = true;
-				console.log(this.blogPosts);
 			} catch (err) {
 				console.log(err, "Error fetching posts");
 			}

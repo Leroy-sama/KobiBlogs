@@ -1,9 +1,9 @@
 <template>
-	<div class="blog-view">
-		<div class="container">
+	<div class="blogview">
+		<div class="wrapper">
 			<h2>{{ blogTitle }}</h2>
 			<img :src="blogCoverPhoto" :alt="blogCoverPhoto" />
-			<div class="blog-content" v-html="blogHTML"></div>
+			<div class="blogview__content" v-html="blogHTML"></div>
 		</div>
 	</div>
 </template>
@@ -28,7 +28,7 @@
 
 <style lang="scss" scoped>
 	.blog-view {
-		min-height: 100%;
+		min-height: 100vh;
 
 		.container {
 			width: min(90%, 80rem);

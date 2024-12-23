@@ -61,11 +61,13 @@
 		collection,
 		addDoc,
 		serverTimestamp,
+		updateDoc,
 	} from "firebase/firestore";
 	import { ref as VueRef, computed } from "vue";
 	import Editor from "primevue/editor";
 	import { useCreateblogStore } from "@/store/create-blog";
 	import { useUserStore } from "@/store/user";
+	import { useFirebasePosts } from "@/store/firebasePosts";
 	import { useRouter } from "vue-router";
 	import BaseButton from "@/components/ui/BaseButton.vue";
 	import CoverPreview from "@/components/ui/CoverPreview.vue";
@@ -74,6 +76,7 @@
 	const router = useRouter();
 	const userStore = useUserStore();
 	const createblogStore = useCreateblogStore();
+	const firebasePosts = useFirebasePosts();
 	const error = VueRef(null);
 	const errorMsg = VueRef(null);
 	const file = VueRef(null);
@@ -159,8 +162,7 @@
 			const timestamp = Date.now();
 			const databaseRef = collection(db, "blogPosts");
 
-			await addDoc(databaseRef, {
-				blogID: databaseRef.id,
+			const docRef = await addDoc(databaseRef, {
 				blogHTML: blogHTML.value,
 				blogCoverPhoto: downLoadURL,
 				blogPhotoName: blogPhotoName.value,
@@ -168,8 +170,13 @@
 				profileId: profileId.value,
 				date: timestamp,
 			});
+			await updateDoc(docRef, {
+				blogID: docRef.id,
+			});
+
+			await firebasePosts.getPost();
 			loading.value = false;
-			router.push("/view-blog");
+			router.push(`/view-blog/${docRef.id}`);
 		} catch (err) {
 			loading.value = false;
 			console.error("Error during blog upload:", err);
