@@ -15,14 +15,13 @@
 				<LatestPost />
 				<div class="otherposts">
 					<BlogItem
-						v-for="blog in blogStore.blogs.slice(1, 4)"
+						v-for="blog in firebasePosts.blogPosts.slice(1, 4)"
 						:key="blog.id"
 						:id="blog.id"
-						:category="blog.category"
 						:blogCoverPhoto="blog.blogCoverPhoto"
 						:blogTitle="blog.blogTitle"
-						:blogDesc="blog.blogDesc"
-						:blogDate="blog.blogDate"
+						:blogDesc="blog.blogHTML"
+						:blogDate="blog.date"
 					/>
 				</div>
 			</div>
@@ -37,8 +36,12 @@
 	import BlogItem from "../components/items/BlogItem.vue";
 	import LatestPost from "@/components/ui/LatestPost.vue";
 	import { useBlogStore } from "@/store/blogs";
+	import { useFirebasePosts } from "@/store/firebasePosts";
 
 	const blogStore = useBlogStore();
+	const firebasePosts = useFirebasePosts();
+
+	console.log(firebasePosts.blogPosts[0]);
 </script>
 
 <style lang="css" scoped>

@@ -4,14 +4,13 @@
 			<h2 class="blogs__heading">All Posts</h2>
 			<div class="blogs__blogs">
 				<BlogItem
-					v-for="blog in blogStore.blogs"
+					v-for="blog in firebasePosts.blogPosts"
 					:key="blog.id"
 					:id="blog.id"
-					:category="blog.category"
 					:blogCoverPhoto="blog.blogCoverPhoto"
 					:blogTitle="blog.blogTitle"
-					:blogDesc="blog.blogDesc"
-					:blogDate="blog.blogDate"
+					:blogDesc="blog.blogHTML"
+					:blogDate="blog.date"
 				/>
 			</div>
 		</div>
@@ -20,9 +19,11 @@
 
 <script setup>
 	import { useBlogStore } from "@/store/blogs";
+	import { useFirebasePosts } from "@/store/firebasePosts";
 	import BlogItem from "@/components/items/BlogItem.vue";
 
 	const blogStore = useBlogStore();
+	const firebasePosts = useFirebasePosts();
 </script>
 
 <style scoped lang="css">

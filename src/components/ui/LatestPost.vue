@@ -1,6 +1,6 @@
 <template>
 	<div class="latest-post">
-		<img :src="firstBlog.blogCoverPhoto" alt="" />
+		<img :src="firstBlog?.blogCoverPhoto" alt="" />
 		<div class="latest-post__details">
 			<div class="span-box">
 				<span class="tag">{{ firstBlog.category }}</span>
@@ -8,24 +8,38 @@
 			<h2 class="latest-post__title">
 				{{ firstBlog.blogTitle }}
 			</h2>
-			<p class="latest-post__smalldesc">
-				{{ firstBlog.blogDesc }}
-			</p>
+			<div class="latest-post__smalldesc">
+				{{
+					firstBlog.blogHTML
+						.replace(/<[^>]*>/g, "")
+						.split(" ")
+						.slice(0, 20)
+						.join(" ") + "..."
+				}}
+			</div>
 			<div class="date-di">
-				<Date />
-				<span class="date">{{ firstBlog.blogDate }}</span>
+				<IconDate />
+				<span class="date">{{ formDate }}</span>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script lang="js" setup>
-	   import { computed } from 'vue';
-	      import { useBlogStore } from '@/store/blogs';
-	import Date from '@/assets/icons/Date.vue';
+		import { computed } from 'vue';
+		import { useBlogStore } from '@/store/blogs';
+		import { useFirebasePosts } from '@/store/firebasePosts';
+	import IconDate from '@/assets/icons/IconDate.vue';
 
-	   const blogStore = useBlogStore();
-	   const firstBlog = computed(() => blogStore.blogs[0]);
+		const blogStore = useBlogStore();
+		const firebasePosts = useFirebasePosts();
+		const firstBlog = computed(() => firebasePosts.blogPosts[0]);
+
+		const formDate = computed(() => {
+			const actualDate = new Date(firstBlog.value.date)
+			const options = { year: 'numeric', month: 'long', day: 'numeric' };
+			return actualDate.toLocaleDateString('en-US', options);
+		})
 </script>
 
 <style lang="css" scoped>

@@ -7,7 +7,7 @@
 				</h1>
 				<div class="blog__info">
 					<div class="info-date">
-						<Date />
+						<IconDate />
 						<span class="date">{{ blogDate }}</span>
 					</div>
 					<div class="info-person">
@@ -47,7 +47,7 @@
 </template>
 
 <script lang="js" setup>
-	import Date from '../assets/icons/Date.vue';
+	import IconDate from '../assets/icons/IconDate.vue';
 	import User from "../assets/icons/User.vue"
 	import { useRoute } from 'vue-router';
 	import { ref,onMounted, computed } from 'vue';

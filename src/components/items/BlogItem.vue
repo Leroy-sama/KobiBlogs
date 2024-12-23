@@ -10,19 +10,18 @@
 			<RouterLink :to="`/blogs/${id}`" class="post__link">
 				<h2 class="post__head">{{ blogTitle }}</h2>
 			</RouterLink>
-			<p class="post__desc">
-				{{ blogDesc }}
-			</p>
+			<div class="post__desc" v-html="truncatedHtml"></div>
 			<div class="date-flex">
-				<Date />
-				<span class="date">{{ blogDate }}</span>
+				<IconDate />
+				<span class="date">{{ formattedDate }}</span>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script setup>
-	import Date from "@/assets/icons/Date.vue";
+	import { computed } from "vue";
+	import IconDate from "@/assets/icons/IconDate.vue";
 
 	const props = defineProps([
 		"id",
@@ -32,6 +31,20 @@
 		"blogDate",
 		"blogDesc",
 	]);
+	const truncatedHtml = computed(() => {
+		const strippedHtml = props.blogDesc.replace(/<[^>]*>/g, "");
+
+		const words = strippedHtml.split(" ").slice(0, 20);
+
+		return words.join(" ") + (words.length >= 20 ? "..." : "");
+	});
+
+	const formattedDate = computed(() => {
+		if (!props.blogDate) return "Unknown date";
+		const actualDate = new Date(props.blogDate);
+		const options = { year: "numeric", month: "long", day: "numeric" };
+		return actualDate.toLocaleDateString("en-US", options);
+	});
 </script>
 
 <style scoped>
