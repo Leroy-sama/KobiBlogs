@@ -5,6 +5,17 @@
 			<RouterLink :to="`/view-blog/${blogID}`"
 				><img :src="blogCoverPhoto" alt=""
 			/></RouterLink>
+			<div class="post__actions" v-if="isEditMode">
+				<button class="action-btn">
+					<IconDelete
+						@click="firebasePosts.deleteBlog(blogID)"
+						class="action-delete"
+					/>
+				</button>
+				<button class="action-btn">
+					<IconEdit class="action-edit" />
+				</button>
+			</div>
 		</div>
 		<div class="post__details">
 			<RouterLink :to="`/view-blog/${blogID}`" class="post__link">
@@ -21,7 +32,10 @@
 
 <script setup>
 	import { computed } from "vue";
+	import { useFirebasePosts } from "@/store/firebasePosts";
 	import IconDate from "@/assets/icons/IconDate.vue";
+	import IconDelete from "@/assets/icons/IconDelete.vue";
+	import IconEdit from "@/assets/icons/IconEdit.vue";
 
 	const props = defineProps([
 		"blogID",
@@ -29,7 +43,10 @@
 		"blogCoverPhoto",
 		"blogDate",
 		"blogDesc",
+		"isEditMode",
 	]);
+
+	const firebasePosts = useFirebasePosts();
 	const truncatedHtml = computed(() => {
 		const strippedHtml = props.blogDesc.replace(/<[^>]*>/g, "");
 
@@ -66,6 +83,23 @@
 	.post-img img {
 		aspect-ratio: 4/3;
 		object-fit: cover;
+	}
+
+	.post__actions {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		display: flex;
+		gap: 1rem;
+	}
+
+	.action-btn {
+		background-color: whitesmoke;
+		border: none;
+		padding: 0.5rem;
+
+		border-radius: 30px;
+		cursor: pointer;
 	}
 
 	.post__details {
