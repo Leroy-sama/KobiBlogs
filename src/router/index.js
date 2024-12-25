@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "../pages/HomePage.vue";
+import { firebaseApp } from "@/firebase/firebaseInit";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const routes = [
 	{
@@ -11,6 +13,7 @@ const routes = [
 		component: HomePage,
 		meta: {
 			title: "Home",
+			requiresAuth: false,
 		},
 	},
 	{
@@ -18,6 +21,7 @@ const routes = [
 		component: () => import("../pages/BlogsPage.vue"),
 		meta: {
 			title: "Blogs",
+			requiresAuth: false,
 		},
 	},
 	{
@@ -25,6 +29,7 @@ const routes = [
 		component: () => import("../pages/BlogDetails.vue"),
 		meta: {
 			title: "Blog Details",
+			requiresAuth: false,
 		},
 	},
 	{
@@ -32,6 +37,7 @@ const routes = [
 		component: () => import("../pages/CreateBlog.vue"),
 		meta: {
 			title: "Create Blog",
+			requiresAuth: true,
 		},
 	},
 	{
@@ -39,6 +45,7 @@ const routes = [
 		component: () => import("../pages/LoginForm.vue"),
 		meta: {
 			title: "Login",
+			requiresAuth: false,
 		},
 	},
 	{
@@ -46,6 +53,7 @@ const routes = [
 		component: () => import("../pages/RegisterForm.vue"),
 		meta: {
 			title: "Register",
+			requiresAuth: false,
 		},
 	},
 	{
@@ -53,6 +61,7 @@ const routes = [
 		component: () => import("../pages/ForgotPassword.vue"),
 		meta: {
 			title: "Forgot Password",
+			requiresAuth: false,
 		},
 	},
 	{
@@ -60,6 +69,7 @@ const routes = [
 		component: () => import("../components/user/UserProfile.vue"),
 		meta: {
 			title: "Profile",
+			requiresAuth: true,
 		},
 	},
 	{
@@ -67,6 +77,7 @@ const routes = [
 		component: () => import("../components/user/Admin.vue"),
 		meta: {
 			title: "Admin",
+			requiresAuth: true,
 		},
 	},
 	{
@@ -74,6 +85,7 @@ const routes = [
 		component: () => import("../pages/BlogPreview.vue"),
 		meta: {
 			title: "Blog Preview",
+			requiresAuth: true,
 		},
 	},
 	{
@@ -81,6 +93,7 @@ const routes = [
 		component: () => import("../pages/ViewBlog.vue"),
 		meta: {
 			title: "View Blog",
+			requiresAuth: false,
 		},
 	},
 	{
@@ -88,6 +101,7 @@ const routes = [
 		component: () => import("../pages/EditBlog.vue"),
 		meta: {
 			title: "Edit Blog",
+			requiresAuth: true,
 		},
 	},
 	{
@@ -95,6 +109,7 @@ const routes = [
 		component: () => import("../pages/NotFound.vue"),
 		meta: {
 			title: "Not Found",
+			requiresAuth: false,
 		},
 	},
 ];
@@ -114,6 +129,26 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
 	document.title = `${to.meta.title} | KobiBlogs`;
 	next();
+});
+
+router.beforeEach(async (to, from, next) => {
+	let user = null;
+	const auth = getAuth(firebaseApp);
+	onAuthStateChanged(auth, (user) => {
+		if (user) {
+			this.user = user;
+			console.log(user);
+		}
+	});
+	if (to.matched.some((res) => res.meta.requiresAuth)) {
+		if (user) {
+			next();
+		} else {
+			return next({ path: "/" });
+		}
+	} else {
+		return next();
+	}
 });
 
 export default router;
