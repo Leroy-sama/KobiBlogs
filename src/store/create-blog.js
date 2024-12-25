@@ -24,5 +24,11 @@ export const useCreateblogStore = defineStore("createblogStore", {
 		openPhotoPreview() {
 			this.blogPhotoPreview = !this.blogPhotoPreview;
 		},
+		setBlogState(currentBlog) {
+			this.blogHTML = currentBlog.blogHTML;
+			this.blogTitle = currentBlog.blogTitle;
+			this.blogPhotoName = currentBlog.blogPhotoName;
+			this.blogPhotoFileURL = currentBlog.blogCoverPhoto;
+		},
 	},
 });

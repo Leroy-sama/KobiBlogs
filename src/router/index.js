@@ -84,6 +84,13 @@ const routes = [
 		},
 	},
 	{
+		path: "/edit-blog/:id",
+		component: () => import("../pages/EditBlog.vue"),
+		meta: {
+			title: "Edit Blog",
+		},
+	},
+	{
 		path: "/:catchAll(.*)",
 		component: () => import("../pages/NotFound.vue"),
 		meta: {

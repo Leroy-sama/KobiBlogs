@@ -12,9 +12,6 @@
 						class="action-delete"
 					/>
 				</button>
-				<button class="action-btn">
-					<IconEdit class="action-edit" />
-				</button>
 			</div>
 		</div>
 		<div class="post__details">
@@ -33,6 +30,7 @@
 <script setup>
 	import { computed } from "vue";
 	import { useFirebasePosts } from "@/store/firebasePosts";
+	import { useRouter } from "vue-router";
 	import IconDate from "@/assets/icons/IconDate.vue";
 	import IconDelete from "@/assets/icons/IconDelete.vue";
 	import IconEdit from "@/assets/icons/IconEdit.vue";
@@ -47,6 +45,7 @@
 	]);
 
 	const firebasePosts = useFirebasePosts();
+	const router = useRouter();
 	const truncatedHtml = computed(() => {
 		const strippedHtml = props.blogDesc.replace(/<[^>]*>/g, "");
 
@@ -61,6 +60,10 @@
 		const options = { year: "numeric", month: "long", day: "numeric" };
 		return actualDate.toLocaleDateString("en-US", options);
 	});
+
+	// const editBlogPost = () => {
+	// 	router.push(`/edit-blog/${props.blogID}`);
+	// };
 </script>
 
 <style lang="css" scoped>

@@ -31,6 +31,7 @@ export const useFirebasePosts = defineStore("firebasePosts", {
 						blogID: doc.id,
 						blogTitle: doc.data().blogTitle,
 						blogCoverPhoto: doc.data().blogCoverPhoto,
+						blogPhotoName: doc.data().blogPhotoName,
 						blogHTML: doc.data().blogHTML,
 						date: doc.data().date,
 					};
@@ -62,6 +63,9 @@ export const useFirebasePosts = defineStore("firebasePosts", {
 				console.log(err, "Error getting blog");
 				throw err;
 			}
+		},
+		async updatePost(blogID) {
+			console.log("updated", blogID);
 		},
 	},
 });
