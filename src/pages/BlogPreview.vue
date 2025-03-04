@@ -30,19 +30,10 @@
 	.blog-view {
 		min-height: 100vh;
 
-		.container {
-			width: min(90%, 80rem);
-			margin-inline: auto;
-		}
-
-		.ql-editor {
-			padding: 0;
-		}
-
 		h2 {
 			margin-bottom: 16px;
 			font-weight: 400;
-			font-size: 32px;
+			font-size: 2.5rem;
 		}
 
 		img {

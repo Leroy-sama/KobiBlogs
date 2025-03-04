@@ -87,6 +87,11 @@
 		margin-inline: auto;
 	}
 
+	.blog-wrapper {
+		width: min(70%, 80rem);
+		margin-inline: auto;
+	}
+
 	/* .post__view {
 		text-decoration: none;
 		color: #eb1616;
