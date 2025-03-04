@@ -40,18 +40,36 @@ export const useUserStore = defineStore("userStore", {
 		},
 
 		async getCurrentUser() {
-			const db = getFirestore(firebaseApp);
-			const auth = getAuth(firebaseApp);
-			const database = doc(db, "users", auth.currentUser.uid);
-			const dbResults = await getDoc(database);
-			this.profileId = dbResults.id;
-			this.profileEmail = dbResults.data().email;
-			this.profileUsername = dbResults.data().username;
-			this.profileInitials = this.generateInitial(this.profileUsername);
+			try {
+				const db = getFirestore(firebaseApp);
+				const auth = getAuth(firebaseApp);
+
+				if (!auth.currentUser) {
+					console.error("No authenticated user found");
+					return;
+				}
+
+				const database = doc(db, "users", auth.currentUser.uid);
+				const dbResults = await getDoc(database);
+
+				if (!dbResults.exists()) {
+					console.error("User document doesn't exist");
+					return;
+				}
+
+				this.profileId = dbResults.id;
+				this.profileEmail = dbResults.data().email;
+				this.profileUsername = dbResults.data().username;
+				this.profileInitials = this.generateInitial(
+					this.profileUsername
+				);
+			} catch (error) {
+				console.error("Error fetching user data:", error);
+			}
 		},
 		generateInitial(name) {
 			if (!name) {
-				return "";
+				return "N/A";
 			}
 			return name
 				.match(/(\b\S)?/g)

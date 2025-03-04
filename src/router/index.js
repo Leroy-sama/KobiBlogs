@@ -131,24 +131,55 @@ router.beforeEach((to, from, next) => {
 	next();
 });
 
-router.beforeEach(async (to, from, next) => {
-	let user = null;
-	const auth = getAuth(firebaseApp);
-	onAuthStateChanged(auth, (user) => {
-		if (user) {
-			this.user = user;
-			console.log(user);
-		}
+const getCurrentUser = () => {
+	return new Promise((resolve) => {
+		const auth = getAuth(firebaseApp);
+		const unsubscribe = onAuthStateChanged(auth, (user) => {
+			unsubscribe();
+			resolve(user);
+		});
 	});
-	if (to.matched.some((res) => res.meta.requiresAuth)) {
-		if (user) {
-			next();
+};
+
+router.beforeEach(async (to, from, next) => {
+	try {
+		const user = await getCurrentUser();
+
+		if (to.matched.some((record) => record.meta.requiresAuth)) {
+			if (user) {
+				next();
+			} else {
+				next({ path: "/login" });
+			}
 		} else {
-			return next({ path: "/" });
+			if (user && (to.path === "/login" || to.path === "/register")) {
+				next({ path: "/" });
+			} else {
+				next();
+			}
 		}
-	} else {
-		return next();
+	} catch (err) {
+		console.error("Authentication error:", err);
+		next({ path: "/login" });
 	}
+
+	// let user = null;
+	// const auth = getAuth(firebaseApp);
+	// onAuthStateChanged(auth, (user) => {
+	// 	if (user) {
+	// 		this.user = user;
+	// 		console.log(user);
+	// 	}
+	// });
+	// if (to.matched.some((res) => res.meta.requiresAuth)) {
+	// 	if (user) {
+	// 		next();
+	// 	} else {
+	// 		return next({ path: "/" });
+	// 	}
+	// } else {
+	// 	return next();
+	// }
 });
 
 export default router;
