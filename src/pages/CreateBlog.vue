@@ -15,6 +15,35 @@
 					placeholder="Enter blog title"
 					v-model="blogTitlestore"
 				/>
+				<div class="category">
+					<label for="blog-category">Category</label>
+					<select
+						id="blog-category"
+						v-model="selectedCategory"
+						@change="handleCategoryChange"
+					>
+						<option value="" disabled>Select a category</option>
+						<option
+							v-for="category in predefinedCategories"
+							:key="category"
+							:value="category"
+						>
+							{{ category }}
+						</option>
+						<option value="other">Other</option>
+						<option value="addCategory">Add Category</option>
+					</select>
+					<input
+						v-if="showCustomCategoryInput"
+						type="text"
+						id="custom-category"
+						placeholder="Enter your own category"
+						v-model="customCategory"
+					/>
+				</div>
+			</div>
+
+			<div class="category-section">
 				<div class="file-upload">
 					<label for="blogphoto">Upload Cover Photo</label>
 					<input
@@ -32,6 +61,7 @@
 					>
 				</div>
 			</div>
+
 			<div class="editor">
 				<Editor
 					v-model="blogHTML"
@@ -85,6 +115,31 @@
 	const db = getFirestore(firebaseApp);
 	const loading = VueRef(null);
 
+	const predefinedCategories = VueRef([
+		"Technology",
+		"Lifestyle",
+		"Travel",
+		"Food",
+		"Health",
+		"Education",
+	]);
+	const selectedCategory = VueRef("");
+	const customCategory = VueRef("");
+	const showCustomCategoryInput = computed(() => {
+		return selectedCategory.value === "addCategory";
+	});
+
+	const handleCategoryChange = () => {
+		if (selectedCategory.value !== "addCategory") {
+			customCategory.value = "";
+		}
+
+		blogCategory.value =
+			selectedCategory.value === "addCategory"
+				? customCategory.value
+				: selectedCategory.value;
+	};
+
 	const openPreview = () => {
 		createblogStore.openPhotoPreview();
 	};
@@ -115,6 +170,15 @@
 		},
 	});
 
+	const blogCategory = computed({
+		get() {
+			return createblogStore.category;
+		},
+		set(newValue) {
+			createblogStore.updateCategory(newValue);
+		},
+	});
+
 	const fileURL = VueRef("");
 
 	const fileChange2 = (event) => {
@@ -131,6 +195,15 @@
 		if (blogTitlestore.value === "" || blogHTML.value === "") {
 			error.value = true;
 			errorMsg.value = "Please enter a blog title and blog HTML";
+			setTimeout(() => {
+				error.value = false;
+			}, 5000);
+			return;
+		}
+
+		if (!selectedCategory.value) {
+			error.value = true;
+			errorMsg.value = "Please select a category";
 			setTimeout(() => {
 				error.value = false;
 			}, 5000);
@@ -162,6 +235,11 @@
 			const timestamp = Date.now();
 			const databaseRef = collection(db, "blogPosts");
 
+			const category =
+				selectedCategory.value === "other"
+					? customCategory.value
+					: selectedCategory.value;
+
 			const docRef = await addDoc(databaseRef, {
 				blogHTML: blogHTML.value,
 				blogCoverPhoto: downLoadURL,
@@ -169,6 +247,7 @@
 				blogTitle: blogTitlestore.value,
 				profileId: profileId.value,
 				date: timestamp,
+				category: category,
 			});
 			await updateDoc(docRef, {
 				blogID: docRef.id,
@@ -214,25 +293,39 @@
 	.blog-info {
 		display: grid;
 		grid-template-columns: 40% 60%;
+		align-items: center;
 		gap: 1.5rem;
 		padding-block: 2rem;
 	}
 
+	.category {
+		display: flex;
+		align-items: center;
+		gap: 1.5rem;
+	}
+
+	.category select {
+		padding: 0.75rem;
+	}
+
+	.category input {
+		padding: 0.75rem;
+	}
+
 	.file-upload {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
+		display: flex;
 		gap: 1.5rem;
 		align-items: center;
 	}
 
 	#blog-title {
-		padding: 0.75rem 1.5rem;
+		padding: 0.75rem;
 		outline: none;
 		font: inherit;
 		/* max-width: 600px; */
 	}
 
-	label {
+	.file-upload label {
 		background-color: var(--colorBlack);
 		color: #fff;
 		padding: 0.75rem 1.6rem;
@@ -246,5 +339,23 @@
 	.blog-actions {
 		display: flex;
 		gap: 1rem;
+	}
+
+	.category-section {
+		display: flex;
+		align-items: center;
+	}
+
+	.category-section select {
+		width: 100%;
+		padding: 0.5rem;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+	}
+
+	.category-section input[type="text"] {
+		padding: 0.5rem;
+		border: 1px solid #ccc;
+		border-radius: 4px;
 	}
 </style>

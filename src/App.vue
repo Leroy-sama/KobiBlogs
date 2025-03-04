@@ -78,6 +78,12 @@
 		text-decoration: none;
 	}
 
+	input,
+	select,
+	textarea {
+		font: inherit;
+	}
+
 	img {
 		width: 100%;
 	}

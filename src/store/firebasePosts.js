@@ -34,6 +34,7 @@ export const useFirebasePosts = defineStore("firebasePosts", {
 						blogPhotoName: doc.data().blogPhotoName,
 						blogHTML: doc.data().blogHTML,
 						date: doc.data().date,
+						category: doc.data().category,
 					};
 					this.blogPosts.push(data);
 				});

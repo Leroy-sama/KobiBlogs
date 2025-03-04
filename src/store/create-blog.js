@@ -7,6 +7,7 @@ export const useCreateblogStore = defineStore("createblogStore", {
 		blogPhotoName: "",
 		blogPhotoFileURL: null,
 		blogPhotoPreview: null,
+		category: "",
 	}),
 	actions: {
 		updateTitle(newTitle) {
@@ -29,6 +30,10 @@ export const useCreateblogStore = defineStore("createblogStore", {
 			this.blogTitle = currentBlog.blogTitle;
 			this.blogPhotoName = currentBlog.blogPhotoName;
 			this.blogPhotoFileURL = currentBlog.blogCoverPhoto;
+			this.category = currentBlog.category || "";
+		},
+		updateCategory(newCategory) {
+			this.category = newCategory;
 		},
 	},
 });
