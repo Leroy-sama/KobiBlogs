@@ -1,13 +1,18 @@
 <template>
 	<div class="latest-post">
-		<img :src="firstBlog?.blogCoverPhoto" alt="" />
+		<RouterLink :to="`/view-blog/${firstBlog.blogID}`">
+			<img :src="firstBlog?.blogCoverPhoto" alt="" />
+		</RouterLink>
 		<div class="latest-post__details">
 			<div class="span-box">
 				<span class="tag">{{ firstBlog.category }}</span>
 			</div>
-			<h2 class="latest-post__title">
-				{{ firstBlog.blogTitle }}
-			</h2>
+
+			<RouterLink :to="`/view-blog/${firstBlog.blogID}`">
+				<h2 class="latest-post__title">
+					{{ firstBlog.blogTitle }}
+				</h2>
+			</RouterLink>
 			<div class="latest-post__smalldesc">
 				{{
 					firstBlog.blogHTML
@@ -80,13 +85,16 @@
 		font-size: 0.8rem;
 	}
 
-	@media (min-width: 1000px) {
+	@media (min-width: 1024px) {
 		.latest-post {
-			display: flex;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
 		}
 
 		.latest-post img {
-			max-width: 700px;
+			/* max-width: 700px; */
+			aspect-ratio: 4/3;
+			object-fit: cover;
 		}
 
 		.latest-post__details {
