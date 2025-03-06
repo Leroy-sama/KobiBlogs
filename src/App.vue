@@ -94,7 +94,7 @@
 	}
 
 	.blog-wrapper {
-		width: min(70%, 80rem);
+		width: min(90%, 80rem);
 		margin-inline: auto;
 	}
 
@@ -122,4 +122,11 @@
 	.post__view:hover::after {
 		transform: scaleX(1);
 	} */
+
+	@media (min-width: 1024px) {
+		.blog-wrapper {
+			width: min(70%, 80rem);
+			margin-inline: auto;
+		}
+	}
 </style>
